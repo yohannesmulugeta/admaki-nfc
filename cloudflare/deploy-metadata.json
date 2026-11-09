@@ -1,0 +1,11 @@
+{
+  "main_module": "worker.mjs",
+  "compatibility_date": "2026-11-09",
+  "bindings": [{"name": "ASSETS", "type": "assets"}],
+  "assets": {
+    "config": {
+      "html_handling": "auto-trailing-slash",
+      "not_found_handling": "none"
+    }
+  }
+}
