@@ -13,5 +13,5 @@ assert(readFileSync('dist/_headers', 'utf8').includes("script-src 'self'"));
 let bytes=0;
 function count(dir){for(const name of readdirSync(dir)){const path=`${dir}/${name}`;const stat=statSync(path);if(stat.isDirectory())count(path);else bytes+=stat.size;}}
 count('dist');
-assert(bytes<250000, `Static payload unexpectedly large: ${bytes}`);
+assert(bytes<600000, `Static payload unexpectedly large: ${bytes}`);
 console.log(`Build verified: ${requiredSections.length} sections, local assets and navigation intact, no prices. Total files: ${bytes.toLocaleString()} bytes.`);

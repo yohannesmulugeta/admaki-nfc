@@ -1,6 +1,6 @@
-# AdMaki NFC
+# ADMAKI Digital Card
 
-NFC business-card marketing website for AdMaki Digital. Prices are intentionally omitted.
+NFC business-card marketing website for ADMAKI Digital. Prices are intentionally omitted.
 
 ## Development
 
@@ -21,7 +21,7 @@ npm run check
 - Sample vCard download. Example records are clearly labelled and use reserved example.com addresses.
 - Native FAQ accordions, responsive navigation, and reduced-motion support.
 - Enquiry form opens a reviewable WhatsApp message to +251 93 792 8215. It does not send automatically or store details.
-- Self-hosted DM Sans font (SIL Open Font License included), local icons, canonical metadata, sitemap, and security headers.
+- Self-hosted Manrope and Noto Sans Ethiopic font (SIL Open Font License included), local icons, canonical metadata, sitemap, and security headers.
 
 ## Content and operations
 

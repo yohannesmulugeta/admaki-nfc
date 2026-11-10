@@ -78,7 +78,7 @@ $('#demo-work').addEventListener('click', () => { $('#demo-feedback').textConten
 $('#save-sample').addEventListener('click', () => {
   const p = profiles[currentProfile];
   // Deliberately use reserved example details, never a real person's information.
-  const vcard = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${p.contact}`, `N:${p.contact};;;;`, 'ORG:Example Company (Demonstration)', 'EMAIL;TYPE=WORK:hello@example.com', 'URL:https://example.com', 'NOTE:Illustrative AdMaki demo contact. Not a real person or company.', 'END:VCARD', ''].join('\r\n');
+  const vcard = ['BEGIN:VCARD', 'VERSION:3.0', `FN:${p.contact}`, `N:${p.contact};;;;`, 'ORG:Example Company (Demonstration)', 'EMAIL;TYPE=WORK:hello@example.com', 'URL:https://example.com', 'NOTE:Illustrative ADMAKI demo contact. Not a real person or company.', 'END:VCARD', ''].join('\r\n');
   const url = URL.createObjectURL(new Blob([vcard], { type: 'text/vcard;charset=utf-8' }));
   const link = document.createElement('a');
   link.href = url;
@@ -117,7 +117,7 @@ $('#enquiry-form').addEventListener('submit', (event) => {
   const interest = String(fields.get('interest'));
   const quantity = String(fields.get('quantity'));
   const note = String(fields.get('message')).trim();
-  const message = [ 'Hello AdMaki Digital, I’m interested in NFC business cards.', '', `Name: ${name}`, ...(company ? [`Company: ${company}`] : []), `Interested in: ${interest}`, `Number of cards: ${quantity}`, ...(note ? ['', `Message: ${note}`] : []) ].join('\n');
+  const message = [ 'Hello ADMAKI Digital, I’m interested in NFC business cards.', '', `Name: ${name}`, ...(company ? [`Company: ${company}`] : []), `Interested in: ${interest}`, `Number of cards: ${quantity}`, ...(note ? ['', `Message: ${note}`] : []) ].join('\n');
   const url = `https://wa.me/251937928215?text=${encodeURIComponent(message)}`;
   const result = $('#form-result');
   result.replaceChildren(document.createTextNode('Your enquiry is ready. '));
