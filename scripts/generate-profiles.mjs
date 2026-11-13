@@ -96,7 +96,6 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
         ${row('Sales enquiries', p.salesEmail, `mailto:${p.salesEmail}`, 'mail')}
         ${row('Get showroom directions', p.address, p.showroomUrl, 'pin', external)}
       </div>
-      <details class="hours"><summary>Showroom opening hours</summary><ul>${p.hours.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></details>
     </section>
     <section class="about-company" aria-labelledby="about-title"><h2 id="about-title">ABOUT MAISON DEBRAH</h2><p>${esc(p.companyDescription)}</p></section>
     <section class="explore-section" aria-labelledby="explore-title"><h2 id="explore-title">EXPLORE MAISON DEBRAH</h2>
