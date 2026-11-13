@@ -11,7 +11,7 @@
   "salesEmail": "sales@maisondebrah-et.com",
   "website": "https://maisondebrah-et.com/",
   "catalogue": "https://online.flippingbook.com/view/1004331464/",
-  "showroomUrl": "https://maisondebrah-et.com/#/contact",
+  "showroomUrl": "https://maps.app.goo.gl/QdJeLBrbNR7V9JtY8?g_st=ic",
   "collectionUrl": "https://maisondebrah-et.com/#/collection/meubilair",
   "address": "Bole Sub-City, Namibia Street, Addis Ababa, Ethiopia",
   "hours": [
@@ -22,13 +22,8 @@
   "social": [
     {
       "name": "Instagram",
-      "url": "https://www.instagram.com/maisondebrah_nl/",
+      "url": "https://www.instagram.com/maisondebrah_et/",
       "icon": "instagram"
-    },
-    {
-      "name": "LinkedIn",
-      "url": "https://www.linkedin.com/in/maisondebrah/",
-      "icon": "linkedin"
     }
   ],
   "theme": "maison",
@@ -37,5 +32,5 @@
   "coverAlt": "The entrance to the Maison Debrah showroom in Addis Ababa",
   "interior": "/profiles/maison-debrah/interior.webp",
   "interiorAlt": "A living area inside the Maison Debrah showroom",
-  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied."
+  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards."
 }
