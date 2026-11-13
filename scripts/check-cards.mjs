@@ -42,6 +42,8 @@ for (const p of cards) {
   } else {
     const unfolded = vcf.replace(/\r\n /g, '');
     assert(unfolded.includes(`NOTE:${p.companyDescription.replace(/,/g, '\\,')}`), 'Company description missing from saved-contact Note');
+    assert(unfolded.includes(`item1.URL:${p.showroomUrl}`), 'Exact showroom map missing from saved contact');
+    assert(unfolded.includes('item1.X-ABLabel:Showroom location'), 'Map URL must have a readable label');
     assert(!unfolded.includes('NOTE:Digital card:'), 'Note must describe the company');
     assert(unfolded.includes('ADR;TYPE=WORK:;;;Addis Ababa;;;Ethiopia'), 'Do not reintroduce an unconfirmed street address');
     const photo = unfolded.match(/PHOTO[^:]*:([^\r\n]+)/)?.[1];

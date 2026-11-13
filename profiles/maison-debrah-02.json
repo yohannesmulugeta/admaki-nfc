@@ -11,12 +11,12 @@
   "salesEmail": "sales@maisondebrah-et.com",
   "website": "https://maisondebrah-et.com/",
   "catalogue": "https://online.flippingbook.com/view/1004331464/",
-  "showroomUrl": "https://maps.app.goo.gl/QdJeLBrbNR7V9JtY8?g_st=ic",
+  "showroomUrl": "https://maps.app.goo.gl/wG9KJmbkrTTntpRF7?g_st=ic",
   "collectionUrl": "https://maisondebrah-et.com/#/collection/meubilair",
   "address": "Addis Ababa, Ethiopia",
   "hours": [
-    "Monday – Friday: 9:00 AM – 7:00 PM",
-    "Saturday: 9:30 AM – 6:00 PM",
+    "Monday \u2013 Friday: 9:00 AM \u2013 7:00 PM",
+    "Saturday: 9:30 AM \u2013 6:00 PM",
     "Sunday: By appointment only"
   ],
   "social": [
@@ -32,7 +32,7 @@
   "coverAlt": "The entrance to the Maison Debrah showroom in Addis Ababa",
   "interior": "/profiles/maison-debrah/interior.webp",
   "interiorAlt": "A living area inside the Maison Debrah showroom",
-  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards. Audit update: unconfirmed Namibia Street detail omitted; city retained with owner-supplied exact map. Company description approved in the improvement plan. Owner-supplied Maison Debrah Ethiopia logo applied to page and contact photo.",
+  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards. Audit update: unconfirmed Namibia Street detail omitted; city retained with owner-supplied exact map. Company description approved in the improvement plan. Owner-supplied Maison Debrah Ethiopia logo applied to page and contact photo. Owner confirmed replacement exact showroom map on 2026-11-14; included as a labeled saved-contact URL.",
   "companyDescription": "Maison Debrah Ethiopia offers furniture, lighting and decorative collections for residential and hospitality interiors. Explore our Addis Ababa showroom, discover our collections, and contact our team for product enquiries and interior consultations.",
   "contactAddress": {
     "street": "",

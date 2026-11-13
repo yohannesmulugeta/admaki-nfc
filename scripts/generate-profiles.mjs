@@ -53,7 +53,7 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
     `ORG:${vEscape(p.organization)}`, `TEL;TYPE=WORK,VOICE:${p.phone}`,
     `EMAIL;TYPE=WORK,INTERNET:${p.email}`, `EMAIL;TYPE=WORK,INTERNET:${p.salesEmail}`,
     `ADR;TYPE=WORK:;;${vEscape(address.street)};${vEscape(address.city)};${vEscape(address.region)};${vEscape(address.postalCode)};${vEscape(address.country)}`,
-    `URL:${p.website}`, `PHOTO;ENCODING=b;TYPE=JPEG:${contactImage}`,
+    `URL:${p.website}`, `item1.URL:${p.showroomUrl}`, 'item1.X-ABLabel:Showroom location', `PHOTO;ENCODING=b;TYPE=JPEG:${contactImage}`,
     `NOTE:${vEscape(p.companyDescription)}`, 'END:VCARD', ''
   ].map(fold).join('\r\n'));
   await QRCode.toFile(`${dir}/qr.svg`, canonical, { type: 'svg', errorCorrectionLevel: 'M', margin: 4, color: { dark: '#17573e', light: '#ffffff' }, width: 512 });
