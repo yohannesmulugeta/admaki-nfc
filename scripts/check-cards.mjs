@@ -39,6 +39,16 @@ for (const p of cards) {
     const unfolded = vcf.replace(/\r\n /g, '');
     const photo = unfolded.match(/PHOTO[^:]*:([^\r\n]+)/)?.[1];
     assert(photo && Buffer.from(photo, 'base64').equals(readFileSync(`public${p.fields.contactPhoto}`)), 'Contact portrait changed');
+  } else {
+    const unfolded = vcf.replace(/\r\n /g, '');
+    assert(unfolded.includes(`NOTE:${p.companyDescription.replace(/,/g, '\\,')}`), 'Company description missing from saved-contact Note');
+    assert(!unfolded.includes('NOTE:Digital card:'), 'Note must describe the company');
+    assert(unfolded.includes('ADR;TYPE=WORK:;;;Addis Ababa;;;Ethiopia'), 'Do not reintroduce an unconfirmed street address');
+    const photo = unfolded.match(/PHOTO[^:]*:([^\r\n]+)/)?.[1];
+    assert(photo && Buffer.from(photo, 'base64').equals(readFileSync(`public${p.contactPhoto}`)), 'Company logo missing from saved contact');
+    for (const category of p.collections) assert(html.includes(`href="${category.url}"`), 'Missing product-category link');
+    assert(html.includes(p.consultationUrl));
+    assert(html.includes('https://www.instagram.com/maisondebrah_et/') && !html.includes('linkedin.com'));
   }
   const png = PNG.sync.read(readFileSync(`dist/${p.slug}/qr.png`));
   const qr = jsQR(new Uint8ClampedArray(png.data), png.width, png.height);

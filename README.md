@@ -44,7 +44,7 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 - The build generates the pages, UTF-8 vCards with CRLF line endings, and SVG/1024 px PNG QR codes encoding each canonical card URL. The first Maison HTML/vCard/SVG remain tracked for compatibility. Other generated card outputs are ignored by Git and recreated before Vite copies `public/` into `dist/`.
 - Maison logo and showroom photography are copied from the official Maison website repository. Contact details, opening hours and social destinations match that website as checked 13 November 2026. Fonts are self-hosted with their OFL licenses.
 - Keep the profile URL stable for printed QR codes and programmed NFC tags. Edit the content record to change contact details, then build and redeploy.
-- The showroom action links to the official contact page. An exact map pin has not been supplied.
+- Maison audit update, 13 November 2026: both cards now use the owner's supplied Google Maps pin and Ethiopian Instagram account. The unconfirmed Namibia Street detail is omitted from the page and saved contact; city/country are retained pending confirmation of the street/building. The saved-contact Note contains the company description, with an embedded JPEG logo for contact apps that support it. Furniture, Lighting, Decoration and consultation links point to the official website.
 - Build checks validate files and contact values. Physical NFC tap and iPhone/Android contact import still need testing on actual devices.
 
 ### Existing Connect pages

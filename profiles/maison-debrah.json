@@ -13,7 +13,7 @@
   "catalogue": "https://online.flippingbook.com/view/1004331464/",
   "showroomUrl": "https://maps.app.goo.gl/QdJeLBrbNR7V9JtY8?g_st=ic",
   "collectionUrl": "https://maisondebrah-et.com/#/collection/meubilair",
-  "address": "Bole Sub-City, Namibia Street, Addis Ababa, Ethiopia",
+  "address": "Addis Ababa, Ethiopia",
   "hours": [
     "Monday – Friday: 9:00 AM – 7:00 PM",
     "Saturday: 9:30 AM – 6:00 PM",
@@ -32,5 +32,29 @@
   "coverAlt": "The entrance to the Maison Debrah showroom in Addis Ababa",
   "interior": "/profiles/maison-debrah/interior.webp",
   "interiorAlt": "A living area inside the Maison Debrah showroom",
-  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards."
+  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards. Audit update: unconfirmed Namibia Street detail omitted; city retained with owner-supplied exact map. Company description approved in the improvement plan.",
+  "companyDescription": "Maison Debrah Ethiopia offers furniture, lighting and decorative collections for residential and hospitality interiors. Explore our Addis Ababa showroom, discover our collections, and contact our team for product enquiries and interior consultations.",
+  "contactAddress": {
+    "street": "",
+    "city": "Addis Ababa",
+    "region": "",
+    "postalCode": "",
+    "country": "Ethiopia"
+  },
+  "contactPhoto": "/profiles/maison-debrah/contact-logo.jpg",
+  "consultationUrl": "https://maisondebrah-et.com/#/design-consult",
+  "collections": [
+    {
+      "name": "Furniture",
+      "url": "https://maisondebrah-et.com/#/collection/meubilair"
+    },
+    {
+      "name": "Lighting",
+      "url": "https://maisondebrah-et.com/#/collection/verlichting"
+    },
+    {
+      "name": "Decoration",
+      "url": "https://maisondebrah-et.com/#/collection/decoratie"
+    }
+  ]
 }

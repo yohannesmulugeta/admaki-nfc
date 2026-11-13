@@ -45,12 +45,16 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
   const external = 'target="_blank" rel="noopener noreferrer"';
   const row = (name, sub, url, glyph, attrs = '') => `<a class="detail-link" href="${esc(url)}" ${attrs}><span class="icon-box">${icon(glyph)}</span><span><strong>${esc(name)}</strong><small>${esc(sub)}</small></span>${icon('arrow')}</a>`;
   const social = p.social.map((s) => `<a class="social-link" href="${esc(s.url)}" ${external}>${icon(s.icon)}<span>${esc(s.name)}</span>${icon('arrow')}</a>`).join('');
+  const address = p.contactAddress;
+  const contactImage = readFileSync(`public${p.contactPhoto}`).toString('base64');
+  const downloadName = p.slug.replaceAll('/', '-');
   writeFileSync(`${dir}/contact.vcf`, [
     'BEGIN:VCARD', 'VERSION:3.0', `FN:${vEscape(p.name)}`, `N:${vEscape(p.name)};;;;`,
     `ORG:${vEscape(p.organization)}`, `TEL;TYPE=WORK,VOICE:${p.phone}`,
     `EMAIL;TYPE=WORK,INTERNET:${p.email}`, `EMAIL;TYPE=WORK,INTERNET:${p.salesEmail}`,
-    'ADR;TYPE=WORK:;;Namibia Street\\, Bole Sub-City;Addis Ababa;;;Ethiopia',
-    `URL:${p.website}`, `NOTE:${vEscape(`Digital card: ${canonical}`)}`, 'END:VCARD', ''
+    `ADR;TYPE=WORK:;;${vEscape(address.street)};${vEscape(address.city)};${vEscape(address.region)};${vEscape(address.postalCode)};${vEscape(address.country)}`,
+    `URL:${p.website}`, `PHOTO;ENCODING=b;TYPE=JPEG:${contactImage}`,
+    `NOTE:${vEscape(p.companyDescription)}`, 'END:VCARD', ''
   ].map(fold).join('\r\n'));
   await QRCode.toFile(`${dir}/qr.svg`, canonical, { type: 'svg', errorCorrectionLevel: 'M', margin: 4, color: { dark: '#17573e', light: '#ffffff' }, width: 512 });
   writeFileSync(`${dir}/index.html`, `<!doctype html>
@@ -78,7 +82,7 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
     </div>
   </header>
   <div class="card-body" id="contact">
-    <a class="save-contact" href="${contactUrl}" download="maison-debrah.vcf">${icon('save')}<span>Save contact</span></a>
+    <a class="save-contact" href="${contactUrl}" download="${downloadName}.vcf">${icon('save')}<span>Save contact</span></a>
     <p class="save-hint">Keep our showroom one tap away.</p>
     <div class="quick-actions" aria-label="Quick contact">
       <a href="tel:${esc(p.phone)}">${icon('phone')}<span>Call</span></a>
@@ -90,13 +94,15 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
         ${row('Speak with us', p.phoneLabel, `tel:${p.phone}`, 'phone')}
         ${row('General enquiries', p.email, `mailto:${p.email}`, 'mail')}
         ${row('Sales enquiries', p.salesEmail, `mailto:${p.salesEmail}`, 'mail')}
-        ${row('Visit our showroom', p.address, p.showroomUrl, 'pin', external)}
+        ${row('Get showroom directions', p.address, p.showroomUrl, 'pin', external)}
       </div>
       <details class="hours"><summary>Showroom opening hours</summary><ul>${p.hours.map((h) => `<li>${esc(h)}</li>`).join('')}</ul></details>
     </section>
+    <section class="about-company" aria-labelledby="about-title"><h2 id="about-title">ABOUT MAISON DEBRAH</h2><p>${esc(p.companyDescription)}</p></section>
     <section class="explore-section" aria-labelledby="explore-title"><h2 id="explore-title">EXPLORE MAISON DEBRAH</h2>
+      <nav class="collection-links" aria-label="Browse product categories">${p.collections.map(c => `<a href="${esc(c.url)}" ${external}>${esc(c.name)}${icon('arrow')}</a>`).join('')}</nav>
       <a class="collection-feature" href="${esc(p.collectionUrl)}" ${external}><img src="${esc(p.interior)}" alt="${esc(p.interiorAlt)}" width="640" height="374" loading="lazy"><span><small>CONSIDERED FOR YOUR SPACE</small><strong>Find your inspiration.</strong><b>Explore our furniture ${icon('arrow')}</b></span></a>
-      <div class="detail-list explore-links">${row('View our catalogue', 'Discover the collection', p.catalogue, 'book', external)}${row('Visit our website', 'maisondebrah-et.com', p.website, 'globe', external)}</div>
+      <div class="detail-list explore-links">${row('View our catalogue', 'Discover the collection', p.catalogue, 'book', external)}${row('Request a consultation', 'Discuss your interior needs with our team', p.consultationUrl, 'mail', external)}${row('Visit our website', 'maisondebrah-et.com', p.website, 'globe', external)}</div>
     </section>
     <nav class="social-links" aria-label="Maison Debrah social profiles">${social}</nav>
     <div class="share-actions"><button class="share-button" type="button" data-share data-card-url="${canonical}" data-card-name="${esc(p.name)}">${icon('share')}<span>Share this card</span></button><button class="qr-link" type="button" data-open-qr>${icon('qr')}<span>QR code</span></button></div>
@@ -105,7 +111,7 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
     <footer><span>Thoughtfully connected.</span><a href="https://nfc.admakidigital.com/">Digital card by <strong>ADMAKI</strong>${icon('arrow')}</a></footer>
   </div>
 </main>
-<dialog id="qr-dialog" aria-labelledby="qr-title"><form method="dialog"><button class="dialog-close" aria-label="Close QR code">${icon('close')}</button></form><p class="eyebrow">SCAN TO CONNECT</p><h2 id="qr-title">${esc(p.name)}</h2><img class="qr-image" src="${qrUrl}" alt="QR code for ${esc(p.name)}’s digital card" width="256" height="256"><p class="qr-caption">Open this digital card on another phone.</p><a class="save-contact" href="${qrUrl}" download="maison-debrah-qr.svg">${icon('save')}<span>Download QR code</span></a></dialog>
+<dialog id="qr-dialog" aria-labelledby="qr-title"><form method="dialog"><button class="dialog-close" aria-label="Close QR code">${icon('close')}</button></form><p class="eyebrow">SCAN TO CONNECT</p><h2 id="qr-title">${esc(p.name)}</h2><img class="qr-image" src="${qrUrl}" alt="QR code for ${esc(p.name)}’s digital card" width="256" height="256"><p class="qr-caption">Open this digital card on another phone.</p><a class="save-contact" href="${qrUrl}" download="${downloadName}-qr.svg">${icon('save')}<span>Download QR code</span></a></dialog>
 </body></html>\n`);
   console.log(`Generated ${p.slug}: card, vCard and QR code.`);
 }
