@@ -27,12 +27,12 @@
     }
   ],
   "theme": "maison",
-  "logo": "/profiles/maison-debrah/logo.svg",
+  "logo": "/profiles/maison-debrah/logo-ethiopia.png",
   "cover": "/profiles/maison-debrah/showroom.webp",
   "coverAlt": "The entrance to the Maison Debrah showroom in Addis Ababa",
   "interior": "/profiles/maison-debrah/interior.webp",
   "interiorAlt": "A living area inside the Maison Debrah showroom",
-  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards. Audit update: unconfirmed Namibia Street detail omitted; city retained with owner-supplied exact map. Company description approved in the improvement plan.",
+  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied. Owner supplied updated showroom map and Ethiopian Instagram account on 2026-11-13; LinkedIn removed from both cards. Audit update: unconfirmed Namibia Street detail omitted; city retained with owner-supplied exact map. Company description approved in the improvement plan. Owner-supplied Maison Debrah Ethiopia logo applied to page and contact photo.",
   "companyDescription": "Maison Debrah Ethiopia offers furniture, lighting and decorative collections for residential and hospitality interiors. Explore our Addis Ababa showroom, discover our collections, and contact our team for product enquiries and interior consultations.",
   "contactAddress": {
     "street": "",

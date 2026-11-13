@@ -64,7 +64,7 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
   <meta name="theme-color" content="#17573e"><meta name="robots" content="noindex,follow">
   <title>${esc(p.name)} | Digital Card</title>
   <meta name="description" content="Connect with Maison Debrah Ethiopia. Save our contact, call, WhatsApp, explore the catalogue or visit our Addis Ababa showroom.">
-  <link rel="canonical" href="${canonical}"><link rel="icon" href="${esc(p.logo)}" type="image/svg+xml">
+  <link rel="canonical" href="${canonical}"><link rel="icon" href="${esc(p.logo)}" type="${p.logo.endsWith('.svg') ? 'image/svg+xml' : 'image/png'}">
   <meta property="og:title" content="${esc(p.name)} | Addis Ababa Showroom"><meta property="og:type" content="website">
   <meta property="og:description" content="Furniture, lighting & decoration. All our contact details in one place.">
   <meta property="og:url" content="${canonical}"><meta property="og:image" content="${origin}${p.cover}"><meta property="og:image:alt" content="${esc(p.coverAlt)}">
@@ -76,7 +76,7 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
 <main class="card">
   <header class="intro">
     <div class="cover"><img src="${esc(p.cover)}" alt="${esc(p.coverAlt)}" width="640" height="374" fetchpriority="high"><span class="cover-label">THE WORLD OF MAISON DEBRAH</span><button class="qr-trigger" type="button" data-open-qr aria-label="Show this card’s QR code">${icon('qr')}</button></div>
-    <div class="identity"><div class="brand-badge"><img src="${esc(p.logo)}" alt="Maison Debrah logo" width="224" height="62"></div>
+    <div class="identity"><div class="brand-badge"><img src="${esc(p.logo)}" alt="Maison Debrah Ethiopia logo" width="224" height="90"></div>
       <p class="eyebrow">${esc(p.eyebrow)}</p><h1>${esc(p.name)}</h1>
       <p class="intro-copy">${esc(p.description)}</p>
     </div>
