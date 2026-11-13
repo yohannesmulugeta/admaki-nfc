@@ -11,7 +11,21 @@ assert(!/\b(?:ETB|USD|birr)\b|\$\s*\d/i.test(html), 'No prices should be publish
 assert(html.includes('https://wa.me/251937928215'), 'Missing real contact route');
 assert(readFileSync('dist/_headers', 'utf8').includes("script-src 'self'"));
 let bytes=0;
-function count(dir){for(const name of readdirSync(dir)){const path=`${dir}/${name}`;const stat=statSync(path);if(stat.isDirectory())count(path);else bytes+=stat.size;}}
+function count(dir){for(const name of readdirSync(dir)){const path=`${dir}/${name}`;if(path==='dist/profiles'||path==='dist/maison-debrah')continue;const stat=statSync(path);if(stat.isDirectory())count(path);else bytes+=stat.size;}}
 count('dist');
 assert(bytes<600000, `Static payload unexpectedly large: ${bytes}`);
 console.log(`Build verified: ${requiredSections.length} sections, local assets and navigation intact, no prices. Total files: ${bytes.toLocaleString()} bytes.`);
+const card = readFileSync('dist/maison-debrah/index.html', 'utf8');
+for(const [, path] of card.matchAll(/(?:href|src)="(\/(?!\/)[^"?#]+)"/g)) assert(statSync(`dist${path}`).isFile(), `Missing card asset ${path}`);
+for(const [,path] of readFileSync('dist/profiles/profile.css','utf8').matchAll(/url\('([^']+)'\)/g)) assert(statSync(`dist${path}`).size>0,`Missing profile font ${path}`);
+assert(card.includes('tel:+251911238324') && card.includes('https://wa.me/251911238324'), 'Card contact mismatch');
+for(const email of ['contact@maisondebrah-et.com','sales@maisondebrah-et.com']) assert(card.includes(`mailto:${email}`));
+assert(card.includes('https://nfc.admakidigital.com/maison-debrah/'));
+assert(!/Universal|Mesfin|example\.com|placeholder/i.test(card),'Unexpected source or placeholder content');
+const contact=readFileSync('dist/maison-debrah/contact.vcf','utf8');
+assert(contact.includes('TEL;TYPE=WORK,VOICE:+251911238324\r\n'));
+assert(contact.includes('FN:Maison Debrah\r\n') && contact.includes('ORG:Maison Debrah Ethiopia\r\n'));
+assert(contact.endsWith('END:VCARD\r\n'));
+for(const line of contact.split('\r\n')) assert(Buffer.byteLength(line)<=75,'vCard line exceeds 75 octets');
+assert(readFileSync('dist/maison-debrah/qr.svg','utf8').includes('<svg'));
+console.log('Maison profile verified: assets, fonts, contact actions, contact file and QR output.');

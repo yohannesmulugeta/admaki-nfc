@@ -5,10 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "vite build",
+    "build": "node scripts/generate-profiles.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check app.js && npm run build && node scripts/check-build.mjs"
+    "check": "node --check app.js && node --check public/profiles/profile.js && npm run build && node scripts/check-build.mjs"
   },
-  "devDependencies": { "vite": "7.3.6" },
-  "engines": { "node": ">=22.12" }
+  "devDependencies": {
+    "qrcode": "^1.5.4",
+    "vite": "7.3.6"
+  },
+  "engines": {
+    "node": ">=22.12"
+  }
 }

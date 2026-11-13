@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:Maison Debrah
+N:Maison Debrah;;;;
+ORG:Maison Debrah Ethiopia
+TEL;TYPE=WORK,VOICE:+251911238324
+EMAIL;TYPE=WORK,INTERNET:contact@maisondebrah-et.com
+EMAIL;TYPE=WORK,INTERNET:sales@maisondebrah-et.com
+ADR;TYPE=WORK:;;Namibia Street\, Bole Sub-City;Addis Ababa;;;Ethiopia
+URL:https://maisondebrah-et.com/
+NOTE:Digital card: https://nfc.admakidigital.com/maison-debrah/
+END:VCARD
