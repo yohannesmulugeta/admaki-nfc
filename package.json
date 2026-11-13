@@ -5,11 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "node scripts/generate-profiles.mjs && vite build",
+    "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check app.js && node --check public/profiles/profile.js && npm run build && node scripts/check-build.mjs"
+    "check": "node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs"
   },
   "devDependencies": {
+    "jsqr": "^1.4.0",
     "qrcode": "^1.5.4",
     "vite": "7.3.6"
   },

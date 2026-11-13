@@ -1,0 +1,16 @@
+{
+  "slug": "universal/02",
+  "layout": "source-copy",
+  "template": "universal",
+  "qrColor": "#012483",
+  "source": "https://universalelectronicet.com/connect/",
+  "fields": {
+    "name": "Mesfin",
+    "phone": "+251911102251",
+    "phoneDisplay": "+251 911 102 251",
+    "whatsapp": "251911102251",
+    "email": "universal.elec@ethionet.et",
+    "portrait": "/profiles/universal/portrait.webp",
+    "contactPhoto": "/profiles/universal/contact-photo.jpg"
+  }
+}

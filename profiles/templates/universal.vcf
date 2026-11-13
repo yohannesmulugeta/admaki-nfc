@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+FN:{{name}} - Universal Electronics
+N:;{{name}};;;
+ORG:Universal Electronics
+TEL;TYPE=WORK,VOICE:{{phone}}
+EMAIL;TYPE=WORK:{{email}}
+ADR;TYPE=WORK:;;Tefera Building\, Habte Giyorgis;Addis Ababa;;;Ethiopia
+URL:https://universalelectronicet.com/
+PHOTO;ENCODING=b;TYPE=JPEG:{{photoBase64}}
+NOTE:Universal Electronics - Your Source for Solar and Sound Solutions.\nSolar energy solutions and professional sound systems in Addis Ababa\, Ethiopia.\nProducts include solar panels\, inverters\, batteries\, solar water pumps\, speakers\, amplifiers and microphones.\nVisit us: Tefera Building\, Habte Giyorgis\, Addis Ababa\, Ethiopia.
+END:VCARD

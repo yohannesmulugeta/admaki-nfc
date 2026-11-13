@@ -34,7 +34,8 @@ function fold(line) {
 
 for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json'))) {
   const p = JSON.parse(readFileSync(`profiles/${file}`, 'utf8'));
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(p.slug)) throw new Error('Invalid profile slug');
+  if (p.layout === 'source-copy') continue;
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)*$/.test(p.slug)) throw new Error('Invalid profile slug');
   if (p.theme !== 'maison') throw new Error('Unknown profile theme');
   const canonical = `${origin}/${p.slug}/`;
   const dir = `public/${p.slug}`;

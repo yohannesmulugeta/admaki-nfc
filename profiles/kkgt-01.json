@@ -1,0 +1,20 @@
+{
+  "slug": "kkgt/01",
+  "layout": "source-copy",
+  "template": "kkgt",
+  "qrColor": "#0b5f35",
+  "source": "https://kkgtcoffee.com/connect/firaol/",
+  "fields": {
+    "name": "Firaol Kelbesa",
+    "firstName": "Firaol",
+    "lastName": "Kelbesa",
+    "role": "General Manager",
+    "phone": "+251991828202",
+    "phoneDisplay": "+251 99 182 8202",
+    "whatsapp": "251991828202",
+    "email": "Kkgtimportexport@gmail.com",
+    "email2": "Importexportkkgt@gmail.com",
+    "portrait": "/profiles/kkgt/portrait.jpg",
+    "contactPhoto": "/profiles/kkgt/contact-photo.jpg"
+  }
+}

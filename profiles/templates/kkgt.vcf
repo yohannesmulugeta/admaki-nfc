@@ -1,0 +1,14 @@
+BEGIN:VCARD
+VERSION:3.0
+N:{{lastName}};{{firstName}};;;
+FN:{{name}}
+ORG:KKGT Coffee;KKGT Import Export
+TITLE:{{role}}
+TEL;TYPE=WORK,CELL:{{phone}}
+EMAIL;TYPE=WORK:{{email}}
+EMAIL;TYPE=WORK:{{email2}}
+URL:https://kkgtcoffee.com/
+ADR;TYPE=WORK:;;Yobek Commercial Center\, 7th Floor\, Office 703A\, Sengatera\, Lideta;Addis Ababa;;;Ethiopia
+PHOTO;ENCODING=b;TYPE=JPEG:{{photoBase64}}
+NOTE:KKGT Coffee connects buyers with Ethiopian green coffee origins through KKGT Import Export. Contact us to discuss origin\, process\, grade\, quantity\, destination and current availability.\nOffice: Yobek Commercial Center\, 7th Floor\, Office 703A\, Sengatera\, Lideta\, Addis Ababa\, Ethiopia.
+END:VCARD

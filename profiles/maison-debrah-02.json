@@ -1,0 +1,41 @@
+{
+  "slug": "maison-debrah/02",
+  "name": "Maison Debrah",
+  "organization": "Maison Debrah Ethiopia",
+  "eyebrow": "Addis Ababa showroom",
+  "description": "Furniture, lighting & decoration. Discover a world of considered interiors, right here in Addis Ababa.",
+  "phone": "+251911238324",
+  "phoneLabel": "+251 91 123 8324",
+  "whatsapp": "251911238324",
+  "email": "contact@maisondebrah-et.com",
+  "salesEmail": "sales@maisondebrah-et.com",
+  "website": "https://maisondebrah-et.com/",
+  "catalogue": "https://online.flippingbook.com/view/1004331464/",
+  "showroomUrl": "https://maisondebrah-et.com/#/contact",
+  "collectionUrl": "https://maisondebrah-et.com/#/collection/meubilair",
+  "address": "Bole Sub-City, Namibia Street, Addis Ababa, Ethiopia",
+  "hours": [
+    "Monday – Friday: 9:00 AM – 7:00 PM",
+    "Saturday: 9:30 AM – 6:00 PM",
+    "Sunday: By appointment only"
+  ],
+  "social": [
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/maisondebrah_nl/",
+      "icon": "instagram"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/maisondebrah/",
+      "icon": "linkedin"
+    }
+  ],
+  "theme": "maison",
+  "logo": "/profiles/maison-debrah/logo.svg",
+  "cover": "/profiles/maison-debrah/showroom.webp",
+  "coverAlt": "The entrance to the Maison Debrah showroom in Addis Ababa",
+  "interior": "/profiles/maison-debrah/interior.webp",
+  "interiorAlt": "A living area inside the Maison Debrah showroom",
+  "source": "Maison Debrah website and src/data/site.json in yohannesmulugeta/maison-debrah-et-last-edition, checked 2026-11-13. Phone also supplied by the owner. Social destinations match the website. Company card; no individual identity supplied."
+}
