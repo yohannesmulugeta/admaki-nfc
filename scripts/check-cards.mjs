@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
 
-const approvedRoutes = ['kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'universal/01', 'universal/02'];
+const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'universal/01', 'universal/02'];
 const cards = readdirSync('profiles').filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`profiles/${f}`, 'utf8')));
 assert.deepEqual(cards.map(p => p.slug).sort(), approvedRoutes, 'Do not rename permanent card routes: printed QR and NFC links depend on them');
 const fingerprints = JSON.parse(readFileSync('profiles/templates/source-fingerprints.json', 'utf8'));
@@ -39,6 +39,19 @@ for (const p of cards) {
     const unfolded = vcf.replace(/\r\n /g, '');
     const photo = unfolded.match(/PHOTO[^:]*:([^\r\n]+)/)?.[1];
     assert(photo && Buffer.from(photo, 'base64').equals(readFileSync(`public${p.fields.contactPhoto}`)), 'Contact portrait changed');
+  } else if (p.layout === 'admaki') {
+    const unfolded = vcf.replace(/\r\n /g, '');
+    assert(unfolded.includes(`TEL;TYPE=WORK,VOICE:${p.phone}`), 'ADMAKI contact phone mismatch');
+    assert(unfolded.includes(`URL:${p.website}`), 'ADMAKI website missing from contact');
+    assert(unfolded.includes(`item1.URL:${canonical}`), 'ADMAKI card missing from saved contact');
+    assert(unfolded.includes(`EMAIL;TYPE=WORK,INTERNET:${p.email}`));
+    assert(unfolded.includes(`EMAIL;TYPE=WORK,INTERNET:${p.personalEmail}`));
+    const photo = unfolded.match(/PHOTO[^:]*:([^\r\n]+)/)?.[1];
+    assert(photo && Buffer.from(photo, 'base64').equals(readFileSync(`public${p.contactPhoto}`)), 'ADMAKI contact logo mismatch');
+    assert(html.includes(`tel:${p.phone}`) && html.includes(`https://wa.me/${p.whatsapp}`));
+    assert.equal(p.services.length, 5, 'Keep the five verified website services');
+    for (const service of p.services) assert(html.includes(`href="${service.url}"`), 'Missing service destination');
+    assert(html.includes('data-card-url="'+canonical+'"'), 'ADMAKI share must use its permanent profile');
   } else {
     const unfolded = vcf.replace(/\r\n /g, '');
     assert(unfolded.includes(`NOTE:${p.companyDescription.replace(/,/g, '\\,')}`), 'Company description missing from saved-contact Note');
@@ -63,4 +76,4 @@ for (const p of cards) {
 }
 const share = readFileSync('dist/profiles/connect-share.js', 'utf8');
 assert(share.includes('link[rel="canonical"]') && !share.includes('kkgtcoffee.com/connect/firaol'), 'Share must use the new permanent URL');
-console.log('Six independent permanent cards verified.');
+console.log(`${cards.length} independent permanent cards verified.`);

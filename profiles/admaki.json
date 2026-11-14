@@ -1,0 +1,31 @@
+{
+  "slug": "admaki",
+  "layout": "admaki",
+  "name": "ADMAKI Digital",
+  "contactName": "Joni",
+  "organization": "ADMAKI Digital",
+  "headline": "Ideas that move. Systems that work.",
+  "description": "We shape bold ideas into memorable websites, creative campaigns and software that solves real business problems.",
+  "phone": "+251937928215",
+  "phoneDisplay": "+251 93 792 8215",
+  "whatsapp": "251937928215",
+  "email": "hello@admakidigital.com",
+  "personalEmail": "joni@admakidigital.com",
+  "website": "https://admakidigital.com/",
+  "location": "Addis Ababa, Ethiopia",
+  "logo": "/brand/admaki-logo.svg",
+  "contactPhoto": "/profiles/admaki/contact-logo.jpg",
+  "services": [
+    {"title":"Websites & digital experiences","description":"A clear story, considered design and an easier next step for your customers.","icon":"web","url":"https://admakidigital.com/services/website-development-ethiopia"},
+    {"title":"Social media & creative campaigns","description":"Content strategy, short-form video and brand storytelling.","icon":"content","url":"https://admakidigital.com/services/social-media-content-ethiopia"},
+    {"title":"Custom software & ERP","description":"Practical systems for warehouse, inventory and everyday business workflows.","icon":"system","url":"https://admakidigital.com/services/custom-software-ethiopia"},
+    {"title":"Digital business cards","description":"Your contacts, your work and your links. One place to start a conversation.","icon":"card","url":"https://nfc.admakidigital.com/"},
+    {"title":"QR restaurant menus","description":"A menu your team can update. A QR code your guests can keep using.","icon":"menu","url":"https://menu.admakidigital.com/"}
+  ],
+  "projects": [
+    {"name":"Universal Electronics","category":"Solar, electronics & sound","url":"https://universalelectronicet.com/","image":"/profiles/admaki/universal.webp"},
+    {"name":"KKGT Coffee","category":"Ethiopian coffee export","url":"https://kkgtcoffee.com/","image":"/profiles/admaki/kkgt-coffee.webp"},
+    {"name":"Sibu Trading PLC","category":"Coffee & trading","url":"https://sibutradingplc.com/","image":"/profiles/admaki/sibu.webp"}
+  ],
+  "source": "Services, copy, contact details, logo and selected project destinations verified against https://admakidigital.com/ and /services on 2026-11-14. Contact name Joni is the owner's preferred name. No individual job title, performance statistics or social profile handles are asserted."
+}

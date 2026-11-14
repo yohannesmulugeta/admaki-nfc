@@ -31,6 +31,7 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 
 | Card | Permanent URL |
 | --- | --- |
+| Joni / ADMAKI Digital | `https://nfc.admakidigital.com/admaki/` |
 | Maison Debrah 01 | `https://nfc.admakidigital.com/maison-debrah/` |
 | Maison Debrah 02 | `https://nfc.admakidigital.com/maison-debrah/02/` |
 | Universal 01 | `https://nfc.admakidigital.com/universal/01/` |
@@ -39,6 +40,7 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 | KKGT 02 | `https://nfc.admakidigital.com/kkgt/02/` |
 
 - Each URL identifies an independent card. Never rename or repurpose an issued route when a salesperson changes; update its record in place. Keep ownership of the domain and hosting active. Stable URLs preserve printed QR codes and NFC tags while content changes.
+- Joni's ADMAKI card: edit `profiles/admaki.json`. Its independent light branded layout is rendered by `scripts/generate-admaki-card.mjs` with styles in `public/profiles/admaki/card.css`. It includes the five website services, three selected website projects, contact actions, sharing, a downloadable contact and QR files. Contact information and project previews were taken from admakidigital.com on 14 November 2026. No unverified social handles are added.
 - Content: `profiles/maison-debrah.json`. This is a company card using the official logo rather than an individual portrait.
 - Shared layout generator: `scripts/generate-profiles.mjs`; presentation and sharing controls: `public/profiles/profile.css` and `profile.js`.
 - The build generates the pages, UTF-8 vCards with CRLF line endings, and SVG/1024 px PNG QR codes encoding each canonical card URL. The first Maison HTML/vCard/SVG remain tracked for compatibility. Other generated card outputs are ignored by Git and recreated before Vite copies `public/` into `dist/`.
