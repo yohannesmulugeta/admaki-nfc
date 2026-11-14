@@ -107,6 +107,15 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
       <a class="collection-feature" href="${esc(p.collectionUrl)}" ${external}><img src="${esc(p.interior)}" alt="${esc(p.interiorAlt)}" width="640" height="374" loading="lazy"><span><small>CONSIDERED FOR YOUR SPACE</small><strong>Find your inspiration.</strong><b>Explore our furniture ${icon('arrow')}</b></span></a>
       <div class="detail-list explore-links">${row('View our catalogue', 'Discover the collection', p.catalogue, 'book', external)}${row('Request a consultation', 'Discuss your interior needs with our team', p.consultationUrl, 'mail', external)}${row('Visit our website', 'maisondebrah-et.com', p.website, 'globe', external)}</div>
     </section>
+    <section class="featured-section" aria-labelledby="featured-title"><h2 id="featured-title">FEATURED PIECES</h2>
+      <p class="section-intro">A few pieces to inspire your space.</p>
+      <div class="featured-products">${(p.featuredProducts || []).map(product => `<article class="product-preview"><a class="product-image" href="${esc(product.url)}" ${external} aria-label="View ${esc(product.name)} ${esc(product.category)}"><img src="${esc(product.image)}" alt="${esc(product.name)} ${esc(product.category)}" width="480" height="480" loading="lazy" decoding="async"></a><div class="product-copy"><p>${esc(product.category)}</p><h3><a href="${esc(product.url)}" ${external}>${esc(product.name)}</a></h3><a class="product-enquiry" href="https://wa.me/${esc(p.whatsapp)}?text=${encodeURIComponent(`Hello Maison Debrah, I'm interested in the ${product.name} ${product.category.toLowerCase()}. Please share details and availability. ${product.url}`)}" ${external} aria-label="Enquire about ${esc(product.name)} on WhatsApp">${icon('whatsapp')} Enquire</a></div></article>`).join('')}</div>
+      <p class="section-note">Ask our team for current availability and product details.</p>
+    </section>
+    <section class="showroom-gallery" aria-labelledby="gallery-title"><h2 id="gallery-title">INSIDE OUR SHOWROOM</h2><p class="section-intro">Discover the details. Picture your space.</p>
+      <div class="gallery-grid">${(p.gallery || []).map(photo => `<a class="gallery-photo" href="${esc(photo.image)}" ${external} aria-label="Open ${esc(photo.title)} photograph"><figure><img src="${esc(photo.image)}" alt="${esc(photo.alt)}" width="640" height="360" loading="lazy" decoding="async"><figcaption>${esc(photo.title)}</figcaption></figure></a>`).join('')}</div>
+      <a class="gallery-directions" href="${esc(p.showroomUrl)}" ${external}>${icon('pin')} Visit our Addis Ababa showroom ${icon('arrow')}</a>
+    </section>
     <nav class="social-links" aria-label="Maison Debrah social profiles">${social}</nav>
     <div class="share-actions"><button class="share-button" type="button" data-share data-card-url="${canonical}" data-card-name="${esc(p.name)}">${icon('share')}<span>Share this card</span></button><button class="qr-link" type="button" data-open-qr>${icon('qr')}<span>QR code</span></button></div>
     <p class="feedback" role="status" aria-live="polite"></p>
