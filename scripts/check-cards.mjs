@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
 
-const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'universal/01', 'universal/02'];
+const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'maison-debrah/03', 'maison-debrah/04', 'universal/01', 'universal/02'];
 const cards = readdirSync('profiles').filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`profiles/${f}`, 'utf8')));
 assert.deepEqual(cards.map(p => p.slug).sort(), approvedRoutes, 'Do not rename permanent card routes: printed QR and NFC links depend on them');
 const fingerprints = JSON.parse(readFileSync('profiles/templates/source-fingerprints.json', 'utf8'));

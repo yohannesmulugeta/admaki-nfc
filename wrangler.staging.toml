@@ -1,0 +1,26 @@
+# ADMAKI NFC staging configuration (not production)
+# Deploy only to a new, isolated staging Worker; do not overwrite the live admaki-nfc Worker.
+name = "admaki-nfc-staging"
+main = "worker/index.js"
+compatibility_date = "2026-11-20"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = ["/api/*", "/maison-debrah/contact.vcf", "/maison-debrah/*/contact.vcf"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "admaki-nfc-staging"
+database_id = "d58537b6-6de3-4c98-bd94-3c3f877248c4"
+
+[[ratelimits]]
+name = "LOGIN_LIMITER"
+namespace_id = "1011"
+simple = { limit = 10, period = 60 }
+
+[observability]
+enabled = true
+
+[observability.traces]
+enabled = true

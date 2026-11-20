@@ -7,12 +7,14 @@
     "dev": "vite --host 0.0.0.0",
     "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && node scripts/generate-admaki-card.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs"
+    "check": "node --check worker/index.js && node --check public/admin/admin.js && node --check public/dashboard/dashboard.js && npm test && node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs",
+    "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {
     "jsqr": "^1.4.0",
     "qrcode": "^1.5.4",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "wrangler": "^4.165.0"
   },
   "engines": {
     "node": ">=22.12"

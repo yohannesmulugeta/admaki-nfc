@@ -8,3 +8,8 @@ public/universal/
 public/maison-debrah/02/
 public/maison-debrah/qr.png
 public/admaki/
+
+.wrangler/
+.dev.vars*
+public/maison-debrah/03/
+public/maison-debrah/04/
