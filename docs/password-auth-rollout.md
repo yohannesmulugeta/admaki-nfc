@@ -1,3 +1,9 @@
+# Username/password rollout
+
+The previous planning checklist below has been superseded by [Phase 1 staging status](phase-one-status.md). Admin and Maison accounts, staging deployment, live contact downloads and API tests are now implemented there. Production cutover and the later R2/identity tasks remain separate.
+
+<details><summary>Original planning checklist (historical)</summary>
+
 # Username/password rollout checklist
 
 Status: development branch only. DO NOT deploy the current Worker until public rendering, data seeding, authorization, and security tests are completed.
@@ -28,3 +34,5 @@ Cloudflare account has an existing `admaki-nfc` Worker. Do not overwrite it with
 - Do not expose current staging API as production-ready.
 - Do not send a temporary password until the client login is actually live.
 - Do not merge or deploy until tests pass and the owner approves production release.
+
+</details>

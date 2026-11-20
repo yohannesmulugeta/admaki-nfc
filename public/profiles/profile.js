@@ -35,9 +35,15 @@ share.addEventListener('click', async () => {
     const text=(selector,value)=>{const el=document.querySelector(selector);if(el&&typeof value==='string')el.textContent=value};
     const link=(selector,value)=>{const el=document.querySelector(selector);if(el&&typeof value==='string'&&['https://','mailto:','tel:'].some(prefix=>value.startsWith(prefix)))el.href=value};
     const image=(selector,value)=>{const el=document.querySelector(selector);if(el&&typeof value==='string'&&(value.startsWith('/')||value.startsWith('https://')))el.src=value};
+    document.title=p.name+' | Digital Card';
+    const meta=document.querySelector('meta[name="description"]');if(meta)meta.content=p.description||'';
+    const shareButton=document.querySelector('[data-share]');if(shareButton)shareButton.dataset.cardName=p.name;
+    text('#qr-title',p.name);
     text('.identity h1',p.name);text('.identity .eyebrow',p.eyebrow);
     text('.identity .intro-copy',p.description);text('.about-company p',p.companyDescription);
     image('.cover img',p.cover);image('.brand-badge img',p.logo);
+    document.querySelector('.cover img')?.setAttribute('alt',p.coverAlt||'');
+    document.querySelector('.collection-feature img')?.setAttribute('alt',p.interiorAlt||'');
     link('.quick-actions a:nth-child(1)','tel:'+p.phone);
     link('.quick-actions a:nth-child(2)','https://wa.me/'+p.whatsapp);
     link('.quick-actions a:nth-child(3)','mailto:'+p.email);

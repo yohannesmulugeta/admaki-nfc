@@ -1,0 +1,4 @@
+body{font:15px system-ui;background:#f5f7f6;color:#173a2a;margin:0}header{background:#173a2a;color:white;padding:22px}main{max-width:900px;margin:auto;padding:20px}.cards{display:flex;gap:12px;flex-wrap:wrap}.card,section{background:white;padding:20px;border-radius:12px;border:1px solid #ddd;margin:12px 0}label{display:block;margin-top:12px}input,textarea{display:block;width:100%;box-sizing:border-box;padding:9px;border:1px solid #aaa;border-radius:6px}button{background:#173a2a;color:white;padding:11px;border:0;border-radius:7px;margin:8px 5px 8px 0;cursor:pointer}
+[hidden]{display:none!important}
+.actions{display:flex;gap:10px;flex-wrap:wrap} .preview{white-space:pre-wrap;background:#f5f7f6;padding:15px} a{overflow-wrap:anywhere}
+fieldset{border:1px solid #d8e1db;border-radius:8px;margin:15px 0;padding:15px}legend{font-weight:600}button:disabled{opacity:.5;cursor:default}

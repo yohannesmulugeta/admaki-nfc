@@ -5,6 +5,8 @@ on:
     branches: [feature/maison-four-independent-cards]
     paths:
       - 'worker/**'
+      - 'tests/**'
+      - 'migrations/**'
       - 'public/**'
       - 'profiles/**'
       - 'scripts/**'
@@ -15,16 +17,20 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: 2a0b619cf019c336f7208f21a1fa28cd
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
           cache: npm
       - run: npm ci
       - run: npm run check
       - name: Deploy isolated staging Worker
+        if: env.CLOUDFLARE_API_TOKEN != ''
         run: npx wrangler deploy --config wrangler.staging.toml
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 2a0b619cf019c336f7208f21a1fa28cd
+      - name: Explain manual staging deployment
+        if: env.CLOUDFLARE_API_TOKEN == ''
+        run: echo "::notice::Staging checks passed. Automatic deployment needs the repository CLOUDFLARE_API_TOKEN secret; the existing staging release is unchanged."
