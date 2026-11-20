@@ -46,6 +46,14 @@ share.addEventListener('click', async () => {
     rows.forEach((el,i)=>{const d=details[i];if(!d)return;const strong=el.querySelector('strong'),small=el.querySelector('small');if(strong)strong.textContent=d[0];if(small)small.textContent=d[1]||'';if(typeof d[2]==='string'&&['https://','mailto:','tel:'].some(prefix=>d[2].startsWith(prefix)))el.href=d[2]});
     const nav=document.querySelector('.collection-links');
     if(nav&&Array.isArray(p.collections)){nav.replaceChildren();for(const c of p.collections){if(typeof c.url!=='string'||!c.url.startsWith('https://'))continue;const a=document.createElement('a');a.href=c.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=c.name||'Collection';nav.append(a)}}
+    link('.gallery-directions',p.showroomUrl);
+    link('.collection-feature',p.collectionUrl);
+    image('.collection-feature img',p.interior);
+    const explore=document.querySelectorAll('.explore-links .detail-link');
+    const targets=[p.catalogue,p.consultationUrl,p.website];
+    explore.forEach((a,i)=>{const url=targets[i];if(typeof url==='string'&&url.startsWith('https://'))a.href=url});
+    const gallery=document.querySelector('.gallery-grid');
+    if(gallery&&Array.isArray(p.gallery)){gallery.replaceChildren();for(const photo of p.gallery){if(typeof photo.image!=='string'||!(photo.image.startsWith('/')||photo.image.startsWith('https://')))continue;const a=document.createElement('a');a.className='gallery-photo';a.href=photo.image;a.target='_blank';a.rel='noopener noreferrer';a.setAttribute('aria-label','Open '+(photo.title||'showroom')+' photograph');const figure=document.createElement('figure');const img=document.createElement('img');img.src=photo.image;img.alt=photo.alt||'';img.loading='lazy';const caption=document.createElement('figcaption');caption.textContent=photo.title||'';figure.append(img,caption);a.append(figure);gallery.append(a)}}
     const social=document.querySelector('.social-links');
     if(social&&Array.isArray(p.social)){social.replaceChildren();for(const c of p.social){if(!String(c.url||'').startsWith('https://'))continue;const a=document.createElement('a');a.className='social-link';a.href=c.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent=c.name||'Social';social.append(a)}}
   }catch(error){console.warn('Published profile unavailable; showing static card.',error)}
