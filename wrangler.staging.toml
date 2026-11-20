@@ -7,7 +7,7 @@ compatibility_date = "2026-11-20"
 [assets]
 directory = "./dist"
 binding = "ASSETS"
-run_worker_first = ["/api/*", "/maison-debrah/contact.vcf", "/maison-debrah/*/contact.vcf"]
+run_worker_first = ["/api/*", "/media/*", "/maison-debrah/contact.vcf", "/maison-debrah/*/contact.vcf"]
 
 [[d1_databases]]
 binding = "DB"
@@ -24,3 +24,17 @@ enabled = true
 
 [observability.traces]
 enabled = true
+
+# R2 activation is pending on this Cloudflare account. After enabling R2 and
+# creating the private bucket, uncomment the following binding before deployment.
+# [[r2_buckets]]
+# binding = "MEDIA"
+# bucket_name = "admaki-nfc-media-staging"
+
+[[ratelimits]]
+name = "MEDIA_LIMITER"
+namespace_id = "1012"
+simple = { limit = 10, period = 60 }
+
+[triggers]
+crons = ["30 0 * * *"]
