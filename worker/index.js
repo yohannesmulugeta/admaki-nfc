@@ -1,5 +1,6 @@
 import { derive, equalHash, ITERATIONS, randomToken, sha, validPassword } from './auth.js';
 import { maisonSlugs, validateProfile, vcard } from './profile.js';
+import { MediaError,uploadMedia,listMedia,deleteMedia,serveMedia,cleanupMedia,validateMediaReferences,availableMediaSQL } from './media.js';
 const reply = (data,status=200) => new Response(JSON.stringify(data),{status,headers:{'content-type':'application/json','cache-control':'no-store','x-content-type-options':'nosniff'}});
 class APIError extends Error { constructor(message,status=400){super(message);this.status=status;} }
 const fail=(message,status)=>{throw new APIError(message,status);};
@@ -91,18 +92,25 @@ async function cards(req,env,user,url){
     if(!org)fail('Select a company');
     const data=await env.DB.prepare('SELECT id,label,slug,version,updated_at,draft_json IS NOT NULL AS has_draft FROM cards WHERE organization_id=? ORDER BY slug').bind(org).all();return reply({organization:membership?.name||org,cards:data.results});
   }
-  const match=url.pathname.match(/^\/api\/cards\/([a-zA-Z0-9_-]+)(?:\/(draft|publish|history|rollback))?$/);if(!match)fail('Not found',404);
+  const match=url.pathname.match(/^\/api\/cards\/([a-zA-Z0-9_-]+)(?:\/(draft|publish|history|rollback|media)(?:\/([a-f0-9-]{36}))?)?$/);if(!match)fail('Not found',404);
   const card=user.is_platform_admin?await env.DB.prepare('SELECT * FROM cards WHERE id=?').bind(match[1]).first():await env.DB.prepare('SELECT * FROM cards WHERE id=? AND organization_id=?').bind(match[1],membership.organization_id).first();
   if(!card)fail('Not found',404);
   const endpoint=match[2];
   if(req.method==='GET'&&!endpoint)return reply({id:card.id,label:card.label,slug:card.slug,version:card.version,updatedAt:card.updated_at,published:JSON.parse(card.published_json),draft:card.draft_json?JSON.parse(card.draft_json):null});
   if(req.method==='GET'&&endpoint==='history'){const revisions=await env.DB.prepare('SELECT version,created_at FROM card_revisions WHERE card_id=? ORDER BY version DESC LIMIT 20').bind(card.id).all();return reply({revisions:revisions.results});}
   if(!user.is_platform_admin&&!['owner','editor'].includes(membership.role))fail('Forbidden',403);
+  if(endpoint==='media'){
+    if(req.method==='GET'&&!match[3])return listMedia(env,card);
+    if(req.method==='POST'&&!match[3])return uploadMedia(req,env,user,card);
+    if(req.method==='DELETE'&&match[3])return deleteMedia(env,card,match[3],user);
+    fail('Not found',404);
+  }
   const data=await body(req);if(!Number.isInteger(data.version)||data.version!==card.version)fail('This card changed. Reload it before saving.',409);
   const mutation=crypto.randomUUID(),version=card.version+1;let update,action;
   if(req.method==='PUT'&&endpoint==='draft'){
     try{validateProfile(data.profile,JSON.parse(card.published_json));}catch(error){fail(error.message);}
-    action='card.draft';update=env.DB.prepare("UPDATE cards SET draft_json=?,version=version+1,updated_at=CURRENT_TIMESTAMP,last_mutation_id=? WHERE id=? AND version=?").bind(JSON.stringify(data.profile),mutation,card.id,card.version);
+    await validateMediaReferences(env,card,data.profile);
+    action='card.draft';update=env.DB.prepare("UPDATE cards SET draft_json=?,version=version+1,updated_at=CURRENT_TIMESTAMP,last_mutation_id=? WHERE id=? AND version=? AND "+availableMediaSQL).bind(JSON.stringify(data.profile),mutation,card.id,card.version,JSON.stringify(data.profile),card.id);
   }else if(req.method==='DELETE'&&endpoint==='draft'){
     action='card.discard';update=env.DB.prepare("UPDATE cards SET draft_json=NULL,version=version+1,updated_at=CURRENT_TIMESTAMP,last_mutation_id=? WHERE id=? AND version=?").bind(mutation,card.id,card.version);
   }else if(req.method==='POST'&&endpoint==='publish'){
@@ -117,6 +125,7 @@ async function cards(req,env,user,url){
 }
 async function handle(req,env){
   const url=new URL(req.url),path=url.pathname;
+  if(path.startsWith('/media/')){if(!['GET','HEAD'].includes(req.method))fail('Method not allowed',405);return serveMedia(req,env,sessionUser);}
   const contact=path.match(/^\/(maison-debrah(?:\/0[234])?)\/contact\.vcf$/);
   if(contact&&['GET','HEAD'].includes(req.method)){
     const card=env.DB&&await env.DB.prepare('SELECT published_json FROM cards WHERE slug=?').bind(contact[1]).first();
@@ -139,4 +148,4 @@ async function handle(req,env){
   if(path.startsWith('/api/admin/'))return admin(req,env,user,path);
   return cards(req,env,user,url);
 }
-export default {async fetch(req,env){try{return await handle(req,env);}catch(error){if(!(error instanceof APIError))console.error(JSON.stringify({event:'request_failed',path:new URL(req.url).pathname,message:'Internal request failure'}));return reply({error:error instanceof APIError?error.message:'Request failed'},error.status||500);}}};
+export default {async fetch(req,env){try{return await handle(req,env);}catch(error){if(!(error instanceof APIError)&&!(error instanceof MediaError))console.error(JSON.stringify({event:'request_failed',path:new URL(req.url).pathname,message:'Internal request failure'}));return reply({error:error instanceof APIError||error instanceof MediaError?error.message:'Request failed'},error.status||500);}},async scheduled(event,env,ctx){ctx.waitUntil(cleanupMedia(env));}};
