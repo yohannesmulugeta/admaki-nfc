@@ -34,7 +34,7 @@ function fold(line) {
 
 for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json'))) {
   const p = JSON.parse(readFileSync(`profiles/${file}`, 'utf8'));
-  if (p.layout === 'source-copy' || p.layout === 'admaki' || p.layout === 'static' || p.layout === 'gesagis') continue;
+  if (p.layout || p.theme && p.theme !== 'maison') continue;
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)*$/.test(p.slug)) throw new Error('Invalid profile slug');
   if (p.theme !== 'maison') throw new Error('Unknown profile theme');
   const canonical = `${origin}/${p.slug}/`;
@@ -122,3 +122,12 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
 </body></html>\n`);
   console.log(`Generated ${p.slug}: card, vCard and QR code.`);
 }
+
+// The editor uses the actual card template and shared renderer for draft previews.
+// It never requests published data or sends draft content to the public API.
+const previewHTML = readFileSync('public/maison-debrah/index.html','utf8')
+  .replace('<script src="/profiles/profile.js" defer></script>', '<script type="module" src="/dashboard/preview.js"></script>')
+  .replace('noindex,follow','noindex,nofollow')
+  .replace('<title>Maison Debrah | Digital Card</title>','<title>Digital card preview</title>');
+mkdirSync('public/dashboard/preview',{recursive:true});
+writeFileSync('public/dashboard/preview/index.html',previewHTML);

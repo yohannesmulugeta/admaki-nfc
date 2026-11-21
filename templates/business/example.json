@@ -1,0 +1,25 @@
+{
+  "slug": "template-example",
+  "source": "Interface template example",
+  "theme": "business",
+  "name": "Your name",
+  "organization": "Your company",
+  "role": "",
+  "description": "",
+  "companyDescription": "",
+  "phone": "",
+  "phoneLabel": "",
+  "whatsapp": "",
+  "email": "",
+  "website": "",
+  "address": "",
+  "showroomUrl": "",
+  "logo": "",
+  "contactPhoto": "",
+  "social": [
+    {
+      "name": "Social profile",
+      "url": "https://example.com/"
+    }
+  ]
+}

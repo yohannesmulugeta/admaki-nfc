@@ -35,6 +35,8 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 | Joni / ADMAKI Digital | `https://nfc.admakidigital.com/admaki/` |
 | Maison Debrah 01 | `https://nfc.admakidigital.com/maison-debrah/` |
 | Maison Debrah 02 | `https://nfc.admakidigital.com/maison-debrah/02/` |
+| Maison Debrah 03 | `https://nfc.admakidigital.com/maison-debrah/03/` |
+| Maison Debrah 04 | `https://nfc.admakidigital.com/maison-debrah/04/` |
 | Universal 01 | `https://nfc.admakidigital.com/universal/01/` |
 | Universal 02 | `https://nfc.admakidigital.com/universal/02/` |
 | KKGT 01 | `https://nfc.admakidigital.com/kkgt/01/` |
@@ -42,7 +44,7 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 
 - Each URL identifies an independent card. Never rename or repurpose an issued route when a salesperson changes; update its record in place. Keep ownership of the domain and hosting active. Stable URLs preserve printed QR codes and NFC tags while content changes.
 - Joni's ADMAKI card: edit `profiles/admaki.json`. Its independent light branded layout is rendered by `scripts/generate-admaki-card.mjs` with styles in `public/profiles/admaki/card.css`. It includes the five website services, three selected website projects, contact actions, sharing, a downloadable contact and QR files. Contact information and project previews were taken from admakidigital.com on 14 November 2026. No unverified social handles are added.
-- Content: `profiles/maison-debrah.json`. This is a company card using the official logo rather than an individual portrait.
+- Content: `profiles/maison-debrah.json` (Card 01), `profiles/maison-debrah-02.json` (Card 02), `profiles/maison-debrah-03.json` (Card 03), and `profiles/maison-debrah-04.json` (Card 04). Edit each JSON independently; keep its slug unchanged. This is a company card using the official logo rather than an individual portrait.
 - Shared layout generator: `scripts/generate-profiles.mjs`; presentation and sharing controls: `public/profiles/profile.css` and `profile.js`.
 - The build generates the pages, UTF-8 vCards with CRLF line endings, and SVG/1024 px PNG QR codes encoding each canonical card URL. The first Maison HTML/vCard/SVG remain tracked for compatibility. Other generated card outputs are ignored by Git and recreated before Vite copies `public/` into `dist/`.
 - Maison logo and showroom photography are copied from the official Maison website repository. Contact details, opening hours and social destinations match that website as checked 13 November 2026. Fonts are self-hosted with their OFL licenses.

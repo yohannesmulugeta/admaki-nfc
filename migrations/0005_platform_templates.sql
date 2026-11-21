@@ -1,0 +1,16 @@
+ALTER TABLE cards ADD COLUMN template_id TEXT;
+ALTER TABLE cards ADD COLUMN template_version TEXT NOT NULL DEFAULT '1';
+ALTER TABLE cards ADD COLUMN schema_version INTEGER NOT NULL DEFAULT 1;
+UPDATE cards SET template_id=json_extract(published_json,'$.theme') WHERE template_id IS NULL;
+ALTER TABLE card_revisions ADD COLUMN template_id TEXT;
+ALTER TABLE card_revisions ADD COLUMN template_version TEXT NOT NULL DEFAULT '1';
+ALTER TABLE card_revisions ADD COLUMN schema_version INTEGER NOT NULL DEFAULT 1;
+UPDATE card_revisions SET template_id=json_extract(profile_json,'$.theme') WHERE template_id IS NULL;
+CREATE INDEX memberships_by_user ON memberships(user_id,organization_id);
+CREATE INDEX cards_by_update ON cards(updated_at DESC,slug);
+CREATE INDEX cards_by_org_update ON cards(organization_id,updated_at DESC,id);
+CREATE UNIQUE INDEX organizations_unique_name ON organizations(lower(trim(name)));
+CREATE TABLE operational_runs(id TEXT PRIMARY KEY, kind TEXT NOT NULL, status TEXT NOT NULL, object_key TEXT, cursor TEXT, created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP, completed_at TEXT, detail TEXT);
+CREATE TABLE revision_archives(card_id TEXT NOT NULL REFERENCES cards(id), version INTEGER NOT NULL, object_key TEXT NOT NULL, template_id TEXT NOT NULL, template_version TEXT NOT NULL, schema_version INTEGER NOT NULL, media_paths_json TEXT NOT NULL DEFAULT '[]', created_at TEXT NOT NULL, PRIMARY KEY(card_id,version));
+ALTER TABLE operational_runs ADD COLUMN lease_until TEXT;
+CREATE UNIQUE INDEX one_running_backup ON operational_runs(kind) WHERE status='running';

@@ -1,0 +1,298 @@
+{
+  "id": "kkgt",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "KKGT Coffee card",
+  "reusable": false,
+  "organizationId": "kkgt",
+  "exampleSlug": "kkgt/01",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "portrait": {
+        "type": "image",
+        "label": "Portrait",
+        "group": "images"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "role": {
+        "type": "text",
+        "label": "Job title",
+        "group": "profile"
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description",
+        "group": "profile"
+      },
+      "salesEmail": {
+        "type": "email",
+        "label": "Sales Email",
+        "group": "contact"
+      },
+      "cover": {
+        "type": "image",
+        "label": "Cover",
+        "group": "images"
+      },
+      "companyDescription": {
+        "type": "textarea",
+        "label": "Company Description",
+        "group": "profile"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact Address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "city": {
+            "type": "text",
+            "label": "City",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "region": {
+            "type": "text",
+            "label": "Region",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postal Code",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "country": {
+            "type": "text",
+            "label": "Country",
+            "group": "profile",
+            "maxLength": 200
+          }
+        }
+      },
+      "collectionUrl": {
+        "type": "url",
+        "label": "Collection Url",
+        "group": "links"
+      },
+      "interior": {
+        "type": "image",
+        "label": "Interior",
+        "group": "images"
+      },
+      "consultationUrl": {
+        "type": "url",
+        "label": "Consultation Url",
+        "group": "links"
+      },
+      "social": {
+        "type": "array",
+        "label": "Social",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".social-links",
+      "key": "social",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "span",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:Kkgtimportexport@gmail.com\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": "a[href=\"mailto:Importexportkkgt@gmail.com\"]",
+      "key": "salesEmail",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".profile h1",
+      "key": "name",
+      "type": "text"
+    },
+    {
+      "selector": ".profile .company",
+      "key": "organization",
+      "type": "text"
+    },
+    {
+      "selector": ".role",
+      "key": "role",
+      "type": "text"
+    },
+    {
+      "selector": ".tagline",
+      "key": "description",
+      "type": "text"
+    },
+    {
+      "selector": ".portrait",
+      "key": "portrait",
+      "type": "image",
+      "altKey": "name"
+    },
+    {
+      "selector": ".cover-photo",
+      "key": "cover",
+      "type": "image"
+    },
+    {
+      "selector": ".cover .logo",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".quick-actions a:first-child>span:last-child",
+      "key": "phoneLabel",
+      "type": "text"
+    },
+    {
+      "selector": "a[href=\"mailto:Kkgtimportexport@gmail.com\"] small",
+      "key": "email",
+      "type": "text"
+    },
+    {
+      "selector": "a[href=\"mailto:Importexportkkgt@gmail.com\"] small",
+      "key": "salesEmail",
+      "type": "text"
+    },
+    {
+      "selector": ".address span",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": ".about p",
+      "key": "companyDescription",
+      "type": "text"
+    },
+    {
+      "selector": ".coffee-feature",
+      "key": "collectionUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".coffee-feature img",
+      "key": "interior",
+      "type": "image"
+    },
+    {
+      "selector": ".inquiry",
+      "key": "consultationUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".website",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    }
+  ]
+}

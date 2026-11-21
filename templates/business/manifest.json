@@ -1,0 +1,233 @@
+{
+  "id": "business",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "Professional business card",
+  "reusable": true,
+  "sourceHTML": "templates/business/1.html",
+  "example": "templates/business/example.json",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "role": {
+        "type": "text",
+        "label": "Job title",
+        "group": "profile"
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description",
+        "group": "profile"
+      },
+      "companyDescription": {
+        "type": "textarea",
+        "label": "Company Description",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "showroomUrl": {
+        "type": "url",
+        "label": "Showroom Url",
+        "group": "links"
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "social": {
+        "type": "array",
+        "label": "Social",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".business-social",
+      "key": "social",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "$",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": "header h1",
+      "key": "name",
+      "type": "text"
+    },
+    {
+      "selector": "header .eyebrow",
+      "key": "organization",
+      "type": "text"
+    },
+    {
+      "selector": "header .role",
+      "key": "role",
+      "type": "text"
+    },
+    {
+      "selector": "header .intro",
+      "key": "description",
+      "type": "text"
+    },
+    {
+      "selector": ".business-logo",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".business-phone",
+      "key": "phoneLabel",
+      "type": "text",
+      "fallback": "phone"
+    },
+    {
+      "selector": ".business-email",
+      "key": "email",
+      "type": "text"
+    },
+    {
+      "selector": ".business-website",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".business-about p",
+      "key": "companyDescription",
+      "type": "text"
+    },
+    {
+      "selector": ".business-location p",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": ".business-location a",
+      "key": "showroomUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-phone",
+      "key": "phone"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-whatsapp",
+      "key": "whatsapp"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-email",
+      "key": "email"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-website",
+      "key": "website"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-about",
+      "key": "companyDescription"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".business-location",
+      "key": "address"
+    }
+  ]
+}

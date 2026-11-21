@@ -1,0 +1,61 @@
+[
+  {
+    "id": "maison-debrah",
+    "name": "Maison Debrah Ethiopia",
+    "logo": "/profiles/maison-debrah/logo-ethiopia.png",
+    "accent": "#17573e",
+    "cards": [
+      "maison-debrah",
+      "maison-debrah/02",
+      "maison-debrah/03",
+      "maison-debrah/04"
+    ]
+  },
+  {
+    "id": "universal",
+    "name": "Universal Electronics",
+    "logo": "/profiles/universal/logo.png",
+    "accent": "#012483",
+    "cards": [
+      "universal/01",
+      "universal/02"
+    ]
+  },
+  {
+    "id": "kkgt",
+    "name": "KKGT Coffee",
+    "logo": "/profiles/kkgt/logo.svg",
+    "accent": "#0b5f35",
+    "cards": [
+      "kkgt/01",
+      "kkgt/02"
+    ]
+  },
+  {
+    "id": "admaki",
+    "name": "ADMAKI Digital",
+    "logo": "/brand/admaki-logo.svg",
+    "accent": "#2563eb",
+    "cards": [
+      "admaki"
+    ]
+  },
+  {
+    "id": "shasho-kelbesa",
+    "name": "Shasho Kelbesa Import Export",
+    "logo": "/profiles/shasho/shasho-logo.webp",
+    "accent": "#087ac0",
+    "cards": [
+      "shasho-kelbesa/ebise"
+    ]
+  },
+  {
+    "id": "gesagis",
+    "name": "GESAGIS Trading PLC",
+    "logo": "/profiles/gesagis/logo.webp",
+    "accent": "#005333",
+    "cards": [
+      "gesagis/yeabtsega"
+    ]
+  }
+]

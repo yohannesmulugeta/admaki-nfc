@@ -1,0 +1,319 @@
+{
+  "id": "admaki",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "ADMAKI Digital card",
+  "reusable": false,
+  "organizationId": "admaki",
+  "exampleSlug": "admaki",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "contactName": {
+        "type": "text",
+        "label": "Contact person",
+        "group": "profile"
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "headline": {
+        "type": "text",
+        "label": "Headline",
+        "group": "profile"
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "personalEmail": {
+        "type": "email",
+        "label": "Personal Email",
+        "group": "contact"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "services": {
+        "type": "array",
+        "label": "Services",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "group": "profile"
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description",
+            "group": "profile"
+          },
+          "icon": {
+            "type": "text",
+            "label": "Icon",
+            "group": "profile"
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      },
+      "projects": {
+        "type": "array",
+        "label": "Projects",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "category": {
+            "type": "text",
+            "label": "Category",
+            "group": "profile"
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          },
+          "image": {
+            "type": "image",
+            "label": "Image",
+            "group": "profile"
+          }
+        }
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact Address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "city": {
+            "type": "text",
+            "label": "City",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "region": {
+            "type": "text",
+            "label": "Region",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postal Code",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "country": {
+            "type": "text",
+            "label": "Country",
+            "group": "profile",
+            "maxLength": 200
+          }
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".service-list",
+      "key": "services",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "h3",
+          "key": "title",
+          "type": "text"
+        },
+        {
+          "selector": ".service-copy p",
+          "key": "description",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": ".projects",
+      "key": "projects",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "strong",
+          "key": "name",
+          "type": "text"
+        },
+        {
+          "selector": "small",
+          "key": "category",
+          "type": "text"
+        },
+        {
+          "selector": "img",
+          "key": "image",
+          "type": "image",
+          "altKey": "name"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:hello@admakidigital.com\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": "a[href=\"mailto:joni@admakidigital.com\"]",
+      "key": "personalEmail",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".hero-top .brand",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".hero h1",
+      "key": "headline",
+      "type": "text"
+    },
+    {
+      "selector": ".hero .intro",
+      "key": "description",
+      "type": "text"
+    },
+    {
+      "selector": ".hero .location",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": ".contact-name",
+      "key": "contactName",
+      "type": "text"
+    },
+    {
+      "selector": ".hero-top>a",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".details a:nth-child(1) strong",
+      "key": "phoneLabel",
+      "type": "text"
+    },
+    {
+      "selector": ".details a:nth-child(2) strong",
+      "key": "email",
+      "type": "text"
+    },
+    {
+      "selector": ".details a:nth-child(3) strong",
+      "key": "personalEmail",
+      "type": "text"
+    },
+    {
+      "selector": ".details a:nth-child(4)",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".text-link",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    }
+  ]
+}

@@ -5,14 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && node scripts/generate-admaki-card.mjs && node scripts/generate-gesagis-card.mjs && vite build",
+    "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && node scripts/generate-admaki-card.mjs && node scripts/generate-gesagis-card.mjs && node scripts/generate-business-cards.mjs && node scripts/generate-workspaces.mjs && node scripts/build-templates.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/gesagis/wechat.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs"
+    "check": "node --check public/profiles/render-families.js && node --check public/manager/ui.js && node --check public/profiles/render-profile.js && node --check public/dashboard/preview.js && node --check worker/index.js && node --check worker/media.js && node --check public/dashboard/media.js && node --check public/admin/admin.js && node --check public/dashboard/dashboard.js && npm test && node --check public/profiles/gesagis/wechat.js && node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && node scripts/check-build.mjs && node scripts/check-cards.mjs",
+    "test": "npm run build && node --test tests/*.test.mjs"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
+    "jsdom": "^31.0.1",
     "jsqr": "^1.4.0",
+    "miniflare": "5.20261118.0-beta",
     "qrcode": "^1.5.4",
-    "vite": "7.3.6"
+    "vite": "7.3.6",
+    "wrangler": "^4.165.0"
   },
   "engines": {
     "node": ">=22.12"
