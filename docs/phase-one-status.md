@@ -48,7 +48,7 @@ The checked-in GitHub staging workflow still requires the repository's `CLOUDFLA
 
 ## Subsequent phases
 
-- R2 file uploads with file-signature checks, size limits, scoped object keys and cleanup. Current media editing accepts existing image paths or HTTPS image links.
+- R2 direct uploads are now deployed to staging in the separate Phase 2 change; see [upload deployment and acceptance status](phase-two-media.md). Existing image paths and HTTPS image links continue to work.
 - Admin card creation/assignment for new companies and tenant-specific themes. Phase 1 manages the four existing Maison cards; creating a company does not create cards automatically.
 - Full visual draft preview and server-rendered/social-crawler metadata. Current preview summarizes editable text; the public design stays in the existing card template.
 - Account onboarding, recovery and member lifecycle, plus stronger password KDF/managed identity review.

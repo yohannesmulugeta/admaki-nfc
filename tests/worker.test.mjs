@@ -7,6 +7,7 @@ import { derive, equalHash, ITERATIONS } from '../worker/auth.js';
 const sqlite=new DatabaseSync(':memory:');
 sqlite.exec(readFileSync('migrations/0001_card_admin.sql','utf8'));
 sqlite.exec(readFileSync('migrations/0002_card_history.sql','utf8'));
+sqlite.exec(readFileSync('migrations/0003_card_media.sql','utf8'));
 class Statement {
   constructor(sql,values=[]){this.sql=sql;this.values=values;}
   bind(...values){return new Statement(this.sql,values);}
