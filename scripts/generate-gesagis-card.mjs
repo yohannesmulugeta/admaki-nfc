@@ -1,4 +1,5 @@
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import QRCode from 'qrcode';
 
 const p = JSON.parse(readFileSync('profiles/gesagis-yeabtsega.json', 'utf8'));
 if (p.layout !== 'gesagis' || p.slug !== 'gesagis/yeabtsega') throw new Error('Unexpected GESAGIS card route');
@@ -31,6 +32,10 @@ function asset(name, ext) {
 const photo = asset('portrait', 'jpg');
 asset('logo', 'webp');
 if (p.portrait !== '/profiles/gesagis/yeabtsega.jpg' || p.logo !== '/profiles/gesagis/logo.webp') throw new Error('GESAGIS image paths changed');
+if (!/^https:\/\/u\.wechat\.com\/[A-Za-z0-9_-]+\?s=2$/.test(p.wechatUrl) || p.wechatQr !== '/profiles/gesagis/wechat-qr.svg' || p.wechatQrPng !== '/profiles/gesagis/wechat-qr.png') throw new Error('Invalid WeChat profile or QR destinations');
+const qrOptions = { errorCorrectionLevel: 'H', margin: 4, color: { dark: '#101712', light: '#ffffff' } };
+await QRCode.toFile(assetDir + '/wechat-qr.svg', p.wechatUrl, { ...qrOptions, type: 'svg', width: 512 });
+await QRCode.toFile(assetDir + '/wechat-qr.png', p.wechatUrl, { ...qrOptions, width: 1024 });
 const vcf = [
   'BEGIN:VCARD', 'VERSION:3.0',
   'FN:' + vEsc(p.name),
@@ -45,6 +50,8 @@ const vcf = [
   'item1.X-ABLabel:Digital business card',
   'item2.URL:' + p.mapSearchUrl,
   'item2.X-ABLabel:Office location (address search)',
+  'item3.URL:' + p.wechatUrl,
+  'item3.X-ABLabel:WeChat contact',
   'NOTE:' + vEsc(p.companyDescription),
   'END:VCARD'
 ].map(fold).join('\r\n') + '\r\n';

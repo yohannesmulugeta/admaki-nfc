@@ -7,11 +7,11 @@
   "role": "Import and Export Manager",
   "organization": "GESAGIS Trading PLC",
   "tagline": "Import · Export · Commodity Trading",
-  "phone": "+251927179289",
-  "phoneDisplay": "+251 927 179 289",
-  "secondaryPhone": "+251902988591",
-  "secondaryPhoneDisplay": "+251 902 988 591",
-  "whatsapp": "251927179289",
+  "phone": "+251902988591",
+  "phoneDisplay": "+251 902 988 591",
+  "secondaryPhone": "+251927179289",
+  "secondaryPhoneDisplay": "+251 927 179 289",
+  "whatsapp": "251902988591",
   "email": "GESAGIS-TRADING-PLC@outlook.com",
   "officeAddress": "Piyasa, Addis Capital Building, 1st Floor, Addis Ababa, Ethiopia",
   "mapSearchUrl": "https://www.google.com/maps/search/?api=1&query=Addis%20Capital%20Building%2C%20Piyasa%2C%20Addis%20Ababa%2C%20Ethiopia",
@@ -37,5 +37,8 @@
   "logo": "/profiles/gesagis/logo.webp",
   "portrait": "/profiles/gesagis/yeabtsega.jpg",
   "qrColor": "#005333",
-  "source": "Owner-supplied GESAGIS Trading PLC business-card PDF (2 pages, November 2026) and owner's confirmed card details and edited portrait. WhatsApp uses the first confirmed phone as requested; confirm this number is WhatsApp-enabled before final NFC printing. Address is confirmed in conversation; Maps URL is an address search, not a verified place pin. No website or social accounts verified."
+  "source": "Owner-supplied GESAGIS business-card PDF; owner-confirmed name, role, company, and portrait. Updated 2026-11-22: primary +251 902 988 591, secondary +251 927 179 289, WhatsApp +251 902 988 591. WeChat link independently decoded from owner's supplied QR image (https://u.wechat.com/kIWh28U1emI-syvsXO_nhBg?s=2). QR assets generated from the same verified WeChat destination. Office address remains the previously confirmed Piyasa address and Maps remains an address search until the shared directions link is clarified. No other social profiles verified.",
+  "wechatUrl": "https://u.wechat.com/kIWh28U1emI-syvsXO_nhBg?s=2",
+  "wechatQr": "/profiles/gesagis/wechat-qr.svg",
+  "wechatQrPng": "/profiles/gesagis/wechat-qr.png"
 }

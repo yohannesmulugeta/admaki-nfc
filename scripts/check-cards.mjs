@@ -64,6 +64,22 @@ for (const p of cards) {
     assert(html.includes('data-card-url="'+canonical+'"'), 'GESAGIS share URL mismatch');
     assert(html.includes('href="/'+p.slug+'/contact.vcf"'), 'GESAGIS contact link missing');
     assert(html.includes('href="/'+p.slug+'/qr.png"'), 'GESAGIS QR download missing');
+    assert.equal(p.phone, '+251902988591', 'GESAGIS confirmed primary phone changed');
+    assert.equal(p.secondaryPhone, '+251927179289', 'GESAGIS confirmed secondary phone changed');
+    assert.equal(p.whatsapp, '251902988591', 'GESAGIS WhatsApp must use primary phone');
+    assert.equal(p.wechatUrl, 'https://u.wechat.com/kIWh28U1emI-syvsXO_nhBg?s=2', 'GESAGIS supplied WeChat URL changed');
+    assert(html.includes('href="'+p.wechatUrl.replaceAll('&','&amp;')+'"'), 'WeChat contact destination missing from page');
+    assert(html.includes('src="'+p.wechatQr+'"'), 'WeChat QR asset missing from page');
+    assert(html.includes('data-open-wechat') && html.includes('id="wechat-dialog"'), 'WeChat modal trigger or target missing');
+    assert(html.includes('<script src="/profiles/gesagis/wechat.js" defer></script>'), 'GESAGIS WeChat dialog script missing');
+    assert(html.includes('href="'+p.wechatQrPng+'"'), 'WeChat QR download missing');
+    assert(statSync('dist'+p.wechatQr).size > 500, 'WeChat SVG QR missing');
+    const wechatPng = PNG.sync.read(readFileSync('dist'+p.wechatQrPng));
+    const wechatQr = jsQR(new Uint8ClampedArray(wechatPng.data), wechatPng.width, wechatPng.height);
+    assert.equal(wechatQr?.data, p.wechatUrl, 'WeChat QR must scan to the supplied contact, never the business-card URL');
+    const wechatScript = readFileSync('dist/profiles/gesagis/wechat.js', 'utf8');
+    assert(wechatScript.includes('wechat-dialog') && wechatScript.includes('showModal()'), 'WeChat modal script missing');
+
     assert(html.includes('class="section contact-section"') && html.includes('class="contact-details"'), 'GESAGIS premium contact layout missing');
     assert((html.match(/class="contact-glyph"/g) || []).length === 4, 'GESAGIS contact icons missing or duplicated');
     assert(html.includes('class="map-call"') && html.includes('Get Directions'), 'GESAGIS full-width map action missing');
@@ -82,6 +98,7 @@ for (const p of cards) {
     assert(unfolded.includes('EMAIL;TYPE=WORK,INTERNET:'+p.email), 'GESAGIS saved email missing');
     assert(unfolded.includes('item1.URL:'+canonical), 'GESAGIS saved contact URL mismatch');
     assert(unfolded.includes('item2.URL:'+p.mapSearchUrl), 'GESAGIS directions missing from contact');
+    assert(unfolded.includes('item3.URL:'+p.wechatUrl), 'GESAGIS WeChat link missing from saved contact');
     assert(unfolded.includes('Addis Capital Building'), 'GESAGIS approved address missing');
     const encoded = unfolded.match(/PHOTO;ENCODING=b;TYPE=JPEG:([A-Za-z0-9+/=]+)/)?.[1];
     assert(encoded, 'GESAGIS vCard photo missing');
