@@ -16,3 +16,6 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 /* Final mobile typography and portrait framing QA adjustment */
 .portrait-frame img{transform:scale(1.12);transform-origin:50% 20%}.contact-small{font-size:11px;color:#566f7d}.about>p{font-size:13px}.service p{font-size:12px}.machine-description p{font-size:11px}@media(max-width:385px){.contact-small{font-size:10px}}
+
+/* Show company gallery photograph in the machinery showcase */
+.machine-graphic{display:block;width:100%;height:245px;margin:16px auto 0;object-fit:cover;object-position:center;border-radius:10px 10px 0 0}.machine-panel{padding-top:16px}.machine-content{background:#ffffff16}@media(max-width:385px){.machine-graphic{height:210px}}

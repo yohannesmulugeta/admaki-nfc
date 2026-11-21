@@ -75,3 +75,8 @@ Office: Beal Building, Offices 107–112, Dej. Beyene Merid Street, Kera, Addis 
 
 ### Premium redesign — Ebise Shasho (Nov 21, 2026)
 Mobile-first corporate layout with a larger owner-supplied portrait, original logo and brand colors, simplified contact actions, 8–10 tonnes/hour company-reported cleaning capability, export/import showcases, official office address search and social profiles. The machine artwork is illustrative, explicitly not an actual facility photo. Real machine and office exterior photos should be added after owner verification; no fake facility imagery is used. Existing canonical URL, NFC and QR destinations, vCard, shared JS and other clients remain unchanged.
+
+
+### Shasho company machinery photo (November 2026)
+
+The owner requested a real machinery photo in Ebise's processing section. The section now uses a photo reproduced from Shasho Kelbesa's own official gallery (`https://shashokelbesa.com/wp-content/uploads/2025/02/1.png`), stored as a local optimized JPEG under `public/profiles/shasho/cleaning-plant.jpg`. The `8–10 tonnes/hour` value remains the company's published claim. Existing QR and NFC links are unchanged. An exact copy of a separately shared inline chat photo was not accessible as a source file; the company's gallery photo is used instead.

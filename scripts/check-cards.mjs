@@ -83,6 +83,8 @@ for (const p of cards) {
     assert(html.includes('8–10 tonnes per hour'), 'Plant capacity missing');
     assert(html.includes('WHAT WE DO') && html.includes('VISIT OUR OFFICE'), 'Business or office content missing');
     assert(html.includes('class="machine-panel"') && html.includes('class="machine-graphic"'), 'Premium machine feature missing');
+    assert(html.includes('src="/profiles/shasho/cleaning-plant.jpg"'), 'Company machinery photo missing from card');
+    assert(statSync('dist/profiles/shasho/cleaning-plant.jpg').size > 10000, 'Company machinery photo not published');
     assert(html.includes('class="service export"') && html.includes('class="service import"'), 'Export/import showcases missing');
     assert(html.includes('class="hero"') && html.includes('class="social-row"'), 'Premium hero/social sections missing');
     assert(!html.includes('class="contact-list"'), 'Duplicated contact list reintroduced');
