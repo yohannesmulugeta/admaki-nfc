@@ -8,8 +8,20 @@ EMAIL;TYPE=WORK:shashokelbessa@gmail.com
 URL:https://shashokelbesa.com/
 item1.URL:https://nfc.admakidigital.com/shasho-kelbesa/ebise/
 item1.X-ABLabel:Digital business card
-ADR;TYPE=WORK:;;Dej. Beyene Merid Street\, Beal Building\, Office 107-112;A
- ddis Ababa;;;Ethiopia
-NOTE:Shasho Kelbesa Import Export - Ethiopian agricultural products\, impor
- t and export.
+ADR;TYPE=WORK:;;Beal Building\, Offices 107–112\, Dej. Beyene Merid Stree
+ t\, Kera;Addis Ababa;;;Ethiopia
+item2.URL:https://www.google.com/maps/search/?api=1&query=Beal%20Building%2
+ C%20Dej.%20Beyene%20Merid%20Street%2C%20Kera%2C%20Addis%20Ababa%2C%20Ethio
+ pia
+item2.X-ABLabel:Office directions (map search)
+item3.URL:https://web.facebook.com/profile.php?id=61571482156351
+item3.X-ABLabel:Facebook
+item4.URL:https://www.instagram.com/shasho_kelbesa_import_export
+item4.X-ABLabel:Instagram
+item5.URL:https://www.linkedin.com/company/shasho-kelbesa-import-export/pos
+ ts/?feedView=all
+item5.X-ABLabel:LinkedIn
+NOTE:Shasho Kelbesa Import Export: Niger and sesame exports\, other oilseed
+ s and cereals\; imports\; beans and pulses cleaning plant with a published
+  capacity of 8–10 tonnes per hour.
 END:VCARD

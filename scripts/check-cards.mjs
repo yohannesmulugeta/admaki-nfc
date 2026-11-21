@@ -68,6 +68,15 @@ for (const p of cards) {
     assert(unfolded.includes('TEL;TYPE=CELL,VOICE:'+p.phone), 'vCard phone mismatch');
     assert(unfolded.includes('EMAIL;TYPE=WORK:'+p.email), 'vCard email mismatch');
     assert(unfolded.includes('item1.URL:'+canonical), 'vCard digital-card link mismatch');
+    assert(html.includes('href="'+p.mapSearchUrl.replaceAll('&','&amp;')+'"'), 'Map link missing from card');
+    assert(unfolded.includes('item2.URL:'+p.mapSearchUrl), 'Map link missing from contact');
+    assert(unfolded.includes('Beal Building'), 'Office address missing');
+    assert(html.includes('8–10 tonnes per hour'), 'Plant capacity missing');
+    assert(html.includes('WHAT WE DO') && html.includes('VISIT OUR OFFICE'), 'Business or office content missing');
+    for (const [index,s] of p.social.entries()) {
+      assert(html.includes('href="'+s.url.replaceAll('&','&amp;')+'"'), s.name+' missing on card');
+      assert(unfolded.includes('item'+(index+3)+'.URL:'+s.url), s.name+' missing in saved contact');
+    }
   } else {
     const unfolded = vcf.replace(/\r\n /g, '');
     assert(unfolded.includes(`NOTE:${p.companyDescription.replace(/,/g, '\\,')}`), 'Company description missing from saved-contact Note');

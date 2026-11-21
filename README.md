@@ -67,3 +67,7 @@ Technical NFC copy was checked against [Apple background tag reading](https://de
 ### Shasho Kelbesa — Ebise Shasho (November 2026)
 
 Permanent URL: `https://nfc.admakidigital.com/shasho-kelbesa/ebise/`. This is a custom branded static client card recorded in `profiles/shasho-ebise.json`. Its HTML, contact file and QR files are in `public/shasho-kelbesa/ebise/`; brand assets are in `public/profiles/shasho/`. Uses the customer-supplied photograph and logo; no unconfirmed job title is displayed. Physical NFC tags should contain the permanent URL, not the current build's asset URL. The public static card has no client dashboard access yet.
+
+
+### Ebise Shasho premium upgrade — November 2026
+Office: Beal Building, Offices 107–112, Dej. Beyene Merid Street, Kera, Addis Ababa. Map CTA uses address search only (no verified place pin). Official website links: Facebook, Instagram, LinkedIn. Published business services: Niger and sesame/oilseed/cereal export; plant for beans and pulses cleaning (company claims 8–10 tonnes/hour); construction equipment, vehicles, tyres and paper imports. A separate processing-facility address has not been verified. Plant and office photos should be provided/confirmed by the client before being used as documentary imagery.
