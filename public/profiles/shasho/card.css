@@ -14,3 +14,5 @@
 @media(max-width:385px){.hero{grid-template-columns:minmax(0,1fr) 139px;min-height:227px;padding-top:29px}.portrait-frame{height:181px}.hero h1{font-size:29px}.hero-copy{padding-bottom:29px}.body{padding:0 16px}.closing{margin-left:-16px;margin-right:-16px;padding-left:16px;padding-right:16px}.quick-actions{gap:5px}.contact-small{font-size:9px}.machine-content{grid-template-columns:95px 1fr}.machine-number strong{font-size:34px}.service{padding:14px 11px}.tags span{font-size:8px}}
 @media(max-width:330px){.hero{grid-template-columns:minmax(0,1fr) 120px}.hero h1{font-size:26px}.portrait-frame{height:171px}.service-grid{grid-template-columns:1fr}.social-row{gap:5px}.social-row strong{font-size:9px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+/* Final mobile typography and portrait framing QA adjustment */
+.portrait-frame img{transform:scale(1.12);transform-origin:50% 20%}.contact-small{font-size:11px;color:#566f7d}.about>p{font-size:13px}.service p{font-size:12px}.machine-description p{font-size:11px}@media(max-width:385px){.contact-small{font-size:10px}}
