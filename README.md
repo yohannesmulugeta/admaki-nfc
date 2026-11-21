@@ -71,3 +71,7 @@ Permanent URL: `https://nfc.admakidigital.com/shasho-kelbesa/ebise/`. This is a 
 
 ### Ebise Shasho premium upgrade — November 2026
 Office: Beal Building, Offices 107–112, Dej. Beyene Merid Street, Kera, Addis Ababa. Map CTA uses address search only (no verified place pin). Official website links: Facebook, Instagram, LinkedIn. Published business services: Niger and sesame/oilseed/cereal export; plant for beans and pulses cleaning (company claims 8–10 tonnes/hour); construction equipment, vehicles, tyres and paper imports. A separate processing-facility address has not been verified. Plant and office photos should be provided/confirmed by the client before being used as documentary imagery.
+
+
+### Premium redesign — Ebise Shasho (Nov 21, 2026)
+Mobile-first corporate layout with a larger owner-supplied portrait, original logo and brand colors, simplified contact actions, 8–10 tonnes/hour company-reported cleaning capability, export/import showcases, official office address search and social profiles. The machine artwork is illustrative, explicitly not an actual facility photo. Real machine and office exterior photos should be added after owner verification; no fake facility imagery is used. Existing canonical URL, NFC and QR destinations, vCard, shared JS and other clients remain unchanged.

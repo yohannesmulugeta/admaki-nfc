@@ -73,6 +73,10 @@ for (const p of cards) {
     assert(unfolded.includes('Beal Building'), 'Office address missing');
     assert(html.includes('8–10 tonnes per hour'), 'Plant capacity missing');
     assert(html.includes('WHAT WE DO') && html.includes('VISIT OUR OFFICE'), 'Business or office content missing');
+    assert(html.includes('class="machine-panel"') && html.includes('class="machine-graphic"'), 'Premium machine feature missing');
+    assert(html.includes('class="service export"') && html.includes('class="service import"'), 'Export/import showcases missing');
+    assert(html.includes('class="hero"') && html.includes('class="social-row"'), 'Premium hero/social sections missing');
+    assert(!html.includes('class="contact-list"'), 'Duplicated contact list reintroduced');
     for (const [index,s] of p.social.entries()) {
       assert(html.includes('href="'+s.url.replaceAll('&','&amp;')+'"'), s.name+' missing on card');
       assert(unfolded.includes('item'+(index+3)+'.URL:'+s.url), s.name+' missing in saved contact');
