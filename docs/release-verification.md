@@ -31,3 +31,9 @@ Client: https://nfc.admakidigital.com/dashboard/
 ## Source synchronization follow-up
 
 The pull request also incorporates main commit 0667890 (corrected GESAGIS phone/WhatsApp numbers and verified WeChat QR). This is template/schema version 2; version 1 remains available for existing pinned cards. No new deployment or database content migration is performed by this source synchronization. Updating an existing GESAGIS card to version 2 requires its separate validated content/template migration.
+
+## Administrator security follow-up
+
+PR #9 was merged as 23875b2. The follow-up adds administrator TOTP setup, account-bound encrypted secrets, ten single-use recovery codes, password-plus-factor turn-off, code replay protection, and session revocation. Enrollment remains disabled until the administrator completes pairing with their own authenticator.
+
+Validation: 53 tests pass, including RFC 6238 vectors, enrollment expiry, origin and role denial, login/recovery reuse rejection, session revocation, concurrent enrollment/sign-in protection, and real Workers AES-GCM/HMAC-SHA-1/QR behavior. The pre-MFA production backup also restores correctly with the new additive schema. Existing GESAGIS content is upgraded separately with compare-and-swap guards; the old template and published revision remain available.

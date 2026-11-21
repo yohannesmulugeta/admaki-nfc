@@ -1,4 +1,5 @@
-import {qrResponse} from './qr.js';
+import {consumeFactor,mfaAction} from './mfa.js';
+import {qrResponse,privateQr} from './qr.js';
 import {startBackup,advanceBackups,archiveHistory,archivedRevision,storageUsage,healthSummary,scheduledMaintenance} from './operations.js';
 import {loadTemplate,templateCatalog,templateIdentity,publicCard} from './templates.js';
 import {contactResponse,embeddedPhoto} from './contact.js';
@@ -45,12 +46,14 @@ async function login(req,env) {
   const correct=await equalHash(candidate,user?.password_hash||'0'.repeat(64));
   if(!user || user.locked_until && Date.parse(user.locked_until+'Z')>Date.now())fail('Invalid credentials or temporarily locked',401);
   if(!correct){await env.DB.prepare("UPDATE users SET failed_attempts=failed_attempts+1,locked_until=CASE WHEN failed_attempts>=4 THEN datetime('now','+15 minutes') ELSE NULL END WHERE id=?").bind(user.id).run();fail('Invalid credentials or temporarily locked',401);}
+  if(user.mfa_secret_cipher){if(!data.otp)return reply({error:'Enter your authenticator or recovery code',mfaRequired:true},401);if(!await consumeFactor(env,user,data.otp)){await env.DB.prepare("UPDATE users SET failed_attempts=failed_attempts+1,locked_until=CASE WHEN failed_attempts>=4 THEN datetime('now','+15 minutes') ELSE NULL END WHERE id=?").bind(user.id).run();return reply({error:'Authenticator or recovery code incorrect',mfaRequired:true},401);}}
   const token=randomToken();
-  await env.DB.batch([
+  const result=await env.DB.batch([
     env.DB.prepare('UPDATE users SET failed_attempts=0,locked_until=NULL WHERE id=?').bind(user.id),
     env.DB.prepare("DELETE FROM sessions WHERE expires_at<=datetime('now')"),
-    env.DB.prepare("INSERT INTO sessions(token_hash,user_id,expires_at) VALUES(?,?,datetime('now','+1 day'))").bind(await sha(token),user.id)
+    env.DB.prepare("INSERT INTO sessions(token_hash,user_id,expires_at) SELECT ?,id,datetime('now','+1 day') FROM users WHERE id=? AND password_hash=? AND COALESCE(mfa_secret_cipher,'')=?").bind(await sha(token),user.id,user.password_hash,user.mfa_secret_cipher||'')
   ]);
+  if(!result[2].meta.changes)fail('Account changed. Sign in again.',409);
   const response=reply({ok:true,username:user.username,isPlatformAdmin:!!user.is_platform_admin});response.headers.set('set-cookie',cookie(token,86400));return response;
 }
 async function logout(req,env){const token=tokenFrom(req);if(token)await env.DB.prepare('DELETE FROM sessions WHERE token_hash=?').bind(await sha(token)).run();const r=reply({ok:true});r.headers.set('set-cookie',cookie('',0));return r;}
@@ -186,8 +189,9 @@ async function handle(req,env){
   if(path==='/api/auth/logout'&&req.method==='POST')return logout(req,env);
   const user=await sessionUser(req,env);if(!user)fail('Unauthorized',401);
   if(path==='/api/auth/me'&&req.method==='GET')return reply({username:user.username,displayName:user.display_name,isPlatformAdmin:!!user.is_platform_admin});
+  const mfa=path.match(/^\/api\/auth\/mfa(?:\/(begin|enable|disable))?$/);if(mfa){if(!user.is_platform_admin)fail('Forbidden',403);if(req.method==='GET'&&!mfa[1])return reply(await mfaAction(env,user,{},'status'));if(req.method!=='POST'||!mfa[1])fail('Not found',404);await limited(req,env,'mfa:'+user.id);const data=await body(req);const result=await mfaAction(env,user,data,mfa[1],async(record,password)=>await equalHash(await derive(password,record.password_salt,record.password_iterations,env.AUTH_PEPPER),record.password_hash));if(result.uri)result.qr=privateQr(result.uri);const response=reply(result);if(['enable','disable'].includes(mfa[1]))response.headers.set('set-cookie',cookie('',0));return response;}
   if(path==='/api/auth/password'&&req.method==='POST')return changePassword(req,env,user);
   if(path.startsWith('/api/admin/'))return admin(req,env,user,path);
   return cards(req,env,user,url);
 }
-export default {async fetch(req,env){try{return await handle(req,env);}catch(error){if(!(error instanceof APIError)&&!(error instanceof MediaError))console.error(JSON.stringify({event:'request_failed',path:new URL(req.url).pathname,message:'Internal request failure'}));return reply({error:error instanceof APIError||error instanceof MediaError||error.status?error.message:'Request failed'},error.status||500);}},async scheduled(event,env,ctx){ctx.waitUntil((async()=>{await cleanupMedia(env);await scheduledMaintenance(env);})());}};
+export default {async fetch(req,env){try{return await handle(req,env);}catch(error){if(!(error instanceof APIError)&&!(error instanceof MediaError)&&!error.status)console.error(JSON.stringify({event:'request_failed',path:new URL(req.url).pathname,message:'Internal request failure'}));return reply({error:error instanceof APIError||error instanceof MediaError||error.status?error.message:'Request failed'},error.status||500);}},async scheduled(event,env,ctx){ctx.waitUntil((async()=>{await cleanupMedia(env);await scheduledMaintenance(env);})());}};

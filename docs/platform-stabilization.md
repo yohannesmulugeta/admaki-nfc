@@ -31,7 +31,7 @@ Legacy generators/normalizers remain as import adapters for existing approved la
 - The latest 20 published revisions remain in hot D1 storage. Older versions archive to private MEDIA R2 and stay restorable; referenced historical images are retained. Daily scheduling starts logical backups; the one-minute maintenance schedule advances bounded batches, archives history and cleans stale unused media. Archive work pauses while a backup is running.
 - BACKUPS is a separate private bucket. Staging backup objects expire after 7 days; production after 30 days. Media/history objects do not use that expiration rule. R2 Standard storage only.
 - Large media libraries can take multiple maintenance batches to back up. A running snapshot older than 24 hours is flagged as overdue; increase throughput or use a dedicated workflow before promising daily full-media recovery for a high-volume tenant.
-- Admin → Account settings shows backup health and offers Start backup/Continue maintenance. Failures produce structured Worker logs; this release does not send external email/SMS alerts or add administrator MFA.
+- Admin → Account settings shows backup health and offers Start backup/Continue maintenance. Failures produce structured Worker logs; this release does not send external email/SMS alerts or send external security notifications.
 - HTML uses ETag revalidation. Private draft/media/API responses remain uncached. Public media rechecks its publication reference on every request so rollback does not leave a shared cached private image.
 
 ## Recovery
@@ -55,3 +55,11 @@ For application rollback, use a prior compatible Worker deployment while retaini
 Use `npm run check`, then Wrangler dry-run. Deploy staging and test authentication, tenant denial, public HTML, preview, all contact files, uploads and backup recovery. Production has separate D1, MEDIA and BACKUPS resources; never bind staging data to production. Record all applied SQL migration names in d1_migrations so subsequent Wrangler migration runs do not reapply ALTER TABLE statements.
 
 The 30-day backup window, retained media/history and traffic determine ongoing costs. No infrastructure plan upgrade is required by this code change. Cost estimates require measured traffic/storage and the actual account plan; no fixed bill is promised.
+
+## Administrator two-step verification
+
+Admin → Account settings → Two-step verification. Enter the current password, scan the private QR using an authenticator app, and enter its current six-digit code. Setup expires after ten minutes. Enabling it signs out existing administrator sessions. Save the ten recovery codes shown once before signing in again. Each recovery code works once; the sign-in code field accepts either an authenticator code or a recovery code.
+
+Secrets are encrypted with AES-GCM using an account-bound key derived from AUTH_PEPPER. Recovery codes are stored only as keyed hashes. Accepted TOTP steps cannot be replayed. Password and factor attempts share account lockout and edge limits; enrollment changes require the current password. Client accounts are not enrolled automatically. No production account is enrolled by a deployment.
+
+Turn-off requires the current password plus an authenticator or recovery code and revokes existing sessions. If every device and recovery code is lost, the platform owner must verify ownership and perform an audited administrative recovery through Cloudflare; there is no password-only self-service bypass. Re-enroll if new recovery codes are needed. Keep AUTH_PEPPER in private recovery storage because it is required for both password authentication and authenticator decryption. Older eight-table backups remain restorable; newer snapshots also contain security_events and encrypted MFA fields.

@@ -11,7 +11,7 @@ test('Real Workers runtime persists media in D1/R2 and controls public visibilit
  try{
   const db=await mf.getD1Database('DB');
  const runtimeFetch=(url,options)=>mf.dispatchFetch(url,options);
-  for(const file of ['0001_card_admin.sql','0002_card_history.sql','0003_card_media.sql','0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql']){
+  for(const file of ['0001_card_admin.sql','0002_card_history.sql','0003_card_media.sql','0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql','0007_admin_mfa.sql']){
    const sql=readFileSync('migrations/'+file,'utf8').replace(/--[^\n]*/g,'');
    for(const statement of sql.split(';').filter(x=>x.trim()))await db.prepare(statement).run();
   }
