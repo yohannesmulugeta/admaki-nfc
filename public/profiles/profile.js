@@ -27,7 +27,7 @@ share.addEventListener('click', async () => {
 // Apply published content to the existing card without changing permanent links.
 (async function refreshPublishedCard(){
   const slug=location.pathname.split('/').filter(Boolean).join('/');
-  if(!['maison-debrah','maison-debrah/02','maison-debrah/03','maison-debrah/04'].includes(slug))return;
+  if(!/^[a-z0-9]+(?:-[a-z0-9]+)*(?:\/[a-z0-9]+(?:-[a-z0-9]+)*)*$/.test(slug))return;
   try{
     const response=await fetch('/api/public/cards/'+slug,{cache:'no-store'});
     if(!response.ok)return;

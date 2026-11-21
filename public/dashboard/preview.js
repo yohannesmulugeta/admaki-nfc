@@ -1,7 +1,7 @@
 import {renderProfile} from '/profiles/render-profile.js';
 // A preview accepts data only from its same-origin parent. No draft is fetched,
 // stored, or broadcast. Links are inert so the frame stays inside the editor.
-const card=document.querySelector('main.card');
+const card=document.querySelector('main');
 card.hidden=true;
 window.addEventListener('message',event=>{
   if(event.origin!==location.origin||event.source!==parent)return;

@@ -1,7 +1,7 @@
-const strings = ['name','organization','eyebrow','description','companyDescription','phone','phoneLabel','whatsapp','email','salesEmail','address','website','showroomUrl','catalogue','collectionUrl','consultationUrl','logo','cover','coverAlt','interior','interiorAlt','contactPhoto','theme'];
-const arrayFields = {social:['name','url','icon'],collections:['name','url'],featuredProducts:['name','category','image','url'],gallery:['image','title','alt']};
+const strings = ['name','organization','eyebrow','description','companyDescription','phone','phoneLabel','whatsapp','email','salesEmail','address','website','showroomUrl','catalogue','collectionUrl','consultationUrl','logo','cover','coverAlt','interior','interiorAlt','contactPhoto','theme','role','portrait','contactName','headline','personalEmail','officeTitle'];
+const arrayFields = {social:['name','url','icon'],collections:['name','url','image'],featuredProducts:['name','category','image','url'],gallery:['image','title','alt'],services:['title','description','icon','url'],projects:['name','category','image','url']};
 const urls = new Set(['website','showroomUrl','catalogue','collectionUrl','consultationUrl','url']);
-const images = new Set(['logo','cover','interior','contactPhoto','image']);
+const images = new Set(['logo','cover','interior','contactPhoto','portrait','image']);
 export const maisonSlugs = ['maison-debrah','maison-debrah/02','maison-debrah/03','maison-debrah/04'];
 const safeURL = (value, local = false) => {
   if (!value) return true;
@@ -19,10 +19,10 @@ export function validateProfile(next, old) {
     if (images.has(key) && !safeURL(next[key],true)) throw Error('Use a local image path or HTTPS URL for '+key);
   }
   if (!next.name?.trim()) throw Error('Name is required');
-  for (const key of ['email','salesEmail']) if (next[key] && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(next[key])) throw Error('Invalid '+key);
+  for (const key of ['email','salesEmail','personalEmail']) if (next[key] && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(next[key])) throw Error('Invalid '+key);
   if (next.phone && !/^\+?[0-9 ()-]{5,30}$/.test(next.phone)) throw Error('Invalid phone');
   if (next.whatsapp && !/^[0-9]{5,20}$/.test(next.whatsapp)) throw Error('WhatsApp needs digits including the country code');
-  if (next.theme !== old.theme) throw Error('Card theme cannot change in this editor');
+  if (!['maison','universal','kkgt','admaki','shasho','business'].includes(old.theme) || next.theme !== old.theme) throw Error('Card theme cannot change in this editor');
   for (const [key, fields] of Object.entries(arrayFields)) {
     if (!(key in next)) continue;
     const value = next[key];
@@ -47,13 +47,20 @@ function fold(line) {
   return result;
 }
 export function vcard(p, origin) {
-  const a=p.contactAddress||{};
-  return ['BEGIN:VCARD','VERSION:3.0',`FN:${escape(p.name)}`,`N:${escape(p.name)};;;;`,`ORG:${escape(p.organization)}`,
+  const a=p.contactAddress||{},links=[];
+  if(p.showroomUrl)links.push({name:'Showroom location',url:p.showroomUrl});
+  if(p.theme!=='maison')links.push({name:'Digital card',url:new URL('/'+p.slug+'/',origin).href});
+  if(p.theme==='admaki'&&p.whatsapp)links.push({name:'WhatsApp',url:'https://wa.me/'+p.whatsapp});
+  if(p.theme==='admaki')for(const service of p.services||[])if(service.url?.includes('menu.admakidigital.com')||service.url?.includes('nfc.admakidigital.com'))links.push({name:service.title,url:service.url});
+  links.push(...(p.social||[]));
+  const note=[p.companyDescription||p.description||'',...(p.services?.length?['Services: '+p.services.map(s=>s.title).join('; ')]:[])].filter(Boolean).join('\n');
+  return ['BEGIN:VCARD','VERSION:3.0',`FN:${escape(p.contactName?p.contactName+' | '+p.name:p.name)}`,`N:${escape(p.contactName||p.name)};;;;`,`ORG:${escape(p.organization)}`,...(p.role?[`TITLE:${escape(p.role)}`]:[]),
     `TEL;TYPE=WORK,VOICE:${escape(p.phone)}`,`EMAIL;TYPE=WORK,INTERNET:${escape(p.email)}`,
+    ...(p.personalEmail?[`EMAIL;TYPE=WORK,INTERNET:${escape(p.personalEmail)}`]:[]),
     ...(p.salesEmail?[`EMAIL;TYPE=WORK,INTERNET:${escape(p.salesEmail)}`]:[]),
     `ADR;TYPE=WORK:;;${escape(a.street)};${escape(a.city)};${escape(a.region)};${escape(a.postalCode)};${escape(a.country)}`,
-    `URL:${escape(p.website)}`,`item1.URL:${escape(p.showroomUrl)}`,'item1.X-ABLabel:Showroom location',
+    `URL:${escape(p.website)}`,
+    ...links.flatMap((s,i)=>[`item${i+1}.URL:${escape(s.url)}`,`item${i+1}.X-ABLabel:${escape(s.name)}`]),
     ...(p.contactPhoto?[`PHOTO;VALUE=URI:${escape(new URL(p.contactPhoto,origin).href)}`]:[]),
-    ...(p.social||[]).flatMap((s,i)=>[`item${i+2}.URL:${escape(s.url)}`,`item${i+2}.X-ABLabel:${escape(s.name)}`]),
-    `NOTE:${escape(p.companyDescription)}`,'END:VCARD',''].map(fold).join('\r\n');
+    `NOTE:${escape(note)}`,'END:VCARD',''].map(fold).join('\r\n');
 }

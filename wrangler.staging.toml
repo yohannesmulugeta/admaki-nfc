@@ -7,7 +7,7 @@ compatibility_date = "2026-11-20"
 [assets]
 directory = "./dist"
 binding = "ASSETS"
-run_worker_first = ["/api/*", "/media/*", "/maison-debrah/contact.vcf", "/maison-debrah/*/contact.vcf"]
+run_worker_first = ["/api/*", "/media/*", "/*/contact.vcf"]
 
 [[d1_databases]]
 binding = "DB"

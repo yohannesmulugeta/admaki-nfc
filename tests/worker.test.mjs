@@ -8,6 +8,7 @@ const sqlite=new DatabaseSync(':memory:');
 sqlite.exec(readFileSync('migrations/0001_card_admin.sql','utf8'));
 sqlite.exec(readFileSync('migrations/0002_card_history.sql','utf8'));
 sqlite.exec(readFileSync('migrations/0003_card_media.sql','utf8'));
+sqlite.exec(readFileSync('migrations/0004_company_branding.sql','utf8'));
 class Statement {
   constructor(sql,values=[]){this.sql=sql;this.values=values;}
   bind(...values){return new Statement(this.sql,values);}
@@ -51,6 +52,25 @@ test('Phase 1 authentication and card operations',async t=>{
   await t.test('publishing updates only chosen card, vCard and audit',async()=>{assert.equal((await request('/api/cards/card1/publish','POST',{version:2},owner)).status,200);assert.equal((await(await request('/api/public/cards/maison-debrah')).json()).profile.name,'New published name');assert.equal((await(await request('/api/cards/card2','GET',undefined,owner)).json()).published.name,profile.name);const vcf=await(await request('/maison-debrah/contact.vcf')).text();assert.match(vcf,/FN:New published name/);assert.match(vcf,/TEL;TYPE=WORK,VOICE:\+251911111111/);assert.match(vcf,/Test street/);for(const line of vcf.split('\r\n'))assert(Buffer.byteLength(line)<=75);assert.equal(sqlite.prepare("SELECT count(*) n FROM audit_events WHERE action='card.publish'").get().n,1);});
   await t.test('history and rollback preserve permanent slug',async()=>{const data=await(await request('/api/cards/card1/history','GET',undefined,owner)).json();assert.equal(data.revisions.length,2);assert.equal((await request('/api/cards/card1/rollback','POST',{version:3,targetVersion:1},owner)).status,200);const current=await(await request('/api/cards/card1','GET',undefined,owner)).json();assert.equal(current.published.name,profile.name);assert.equal(current.slug,profile.slug);assert.equal(current.version,4);});
   await t.test('admin creates company/account and manages cards',async()=>{assert.equal((await request('/api/cards/card2','GET',undefined,admin)).status,200);assert.equal((await request('/api/admin/organizations','POST',{name:'New company'},admin)).status,201);assert.equal((await request('/api/admin/organizations/maison-debrah/users','POST',{username:'newclient',displayName:'New Client',password},admin)).status,201);assert.equal((await signIn('newclient')).startsWith('admaki_session='),true);});
+  await t.test('future-company cards publish through the shared API with tenant isolation',async()=>{
+    const p={slug:'future-company/alice',source:'Test fixture',theme:'business',name:'Alice',organization:'Future company',phone:'+251911111111',email:'alice@example.test',website:'https://example.test/'};
+    sqlite.prepare('INSERT INTO cards(id,organization_id,slug,label,published_json) VALUES(?,?,?,?,?)').run('future-card','elsewhere',p.slug,p.name,JSON.stringify(p));
+    assert.equal((await request('/api/cards/future-card','GET',undefined,owner)).status,404);
+    assert.equal((await request('/api/cards/future-card/draft','PUT',{version:1,profile:{...p,name:'Updated Alice'}},other)).status,200);
+    assert.equal((await(await request('/api/public/cards/'+p.slug)).json()).profile.name,'Alice');
+    assert.equal((await request('/api/cards/future-card/publish','POST',{version:2},other)).status,200);
+    assert.equal((await(await request('/api/public/cards/'+p.slug)).json()).profile.name,'Updated Alice');
+    assert.match(await(await request('/'+p.slug+'/contact.vcf')).text(),/FN:Updated Alice/);
+    assert.equal((await(await request('/api/cards/card2','GET',undefined,owner)).json()).published.name,profile.name);
+  });
+  await t.test('company branding uses a shared default, validates contrast and requires admin access',async()=>{
+    assert.equal((await request('/api/admin/organizations/elsewhere','PATCH',{name:'Other company',logo:'/brand/admaki-logo.svg',accent:'#012483'},other)).status,403);
+    assert.equal((await request('/api/admin/organizations/elsewhere','PATCH',{name:'Other company',accent:'#ffffff'},admin)).status,400);
+    assert.equal((await request('/api/admin/organizations/elsewhere','PATCH',{name:'Other company',logo:'javascript:alert(1)'},admin)).status,400);
+    assert.equal((await request('/api/admin/organizations/elsewhere','PATCH',{name:'Other company',logo:'/brand/admaki-logo.svg',accent:'#012483'},admin)).status,200);
+    const data=await(await request('/api/cards','GET',undefined,other)).json();assert.equal(data.branding.logo,'/brand/admaki-logo.svg');assert.equal(data.branding.accent,'#012483');assert.equal(data.organization,'Other company');
+    const mine=await(await request('/api/cards','GET',undefined,owner)).json();assert.equal(mine.branding.accent,'#2563eb');
+  });
   await t.test('admin reset revokes client sessions',async()=>{assert.equal((await request('/api/admin/organizations/maison-debrah/users/owner/password','POST',{password:'Replacement-password-472!'},admin)).status,200);assert.equal((await request('/api/cards','GET',undefined,owner)).status,401);});
   await t.test('password change revokes all sessions and logout clears cookie',async()=>{assert.equal((await request('/api/auth/password','POST',{currentPassword:password,newPassword:'Other-new-password-472!'},other)).status,200);assert.equal((await request('/api/cards','GET',undefined,other)).status,401);const r=await request('/api/auth/logout','POST',{},admin);assert.match(r.headers.get('set-cookie'),/Max-Age=0/);assert.equal((await request('/api/admin/organizations','GET',undefined,admin)).status,401);});
   await t.test('edge limiter fails closed',async()=>{env.LOGIN_LIMITER={limit:async()=>({success:false})};assert.equal((await request('/api/auth/login','POST',{username:'owner',password})).status,429);});
