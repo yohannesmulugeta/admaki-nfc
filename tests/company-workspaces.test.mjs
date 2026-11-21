@@ -17,7 +17,7 @@ test('all registered companies and cards have independent, valid workspace profi
  assert.equal(profiles.find(p=>p.theme==='shasho').name,'Ebise Shasho');
 });
 test('onboarding is repeatable and never overwrites existing drafts, published content or versions',()=>{
- const db=new DatabaseSync(':memory:');for(const f of ['0001_card_admin.sql','0002_card_history.sql','0003_card_media.sql','0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql'])db.exec(readFileSync('migrations/'+f,'utf8'));
+ const db=new DatabaseSync(':memory:');for(const f of ['0001_card_admin.sql','0002_card_history.sql','0003_card_media.sql','0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql','0007_admin_mfa.sql'])db.exec(readFileSync('migrations/'+f,'utf8'));
  db.prepare('INSERT INTO organizations(id,name) VALUES(?,?)').run('maison-debrah','Maison Debrah Ethiopia');const p=companies[0].profiles[0];const original=JSON.stringify({...p,name:'Owner-approved edit'}),draft=JSON.stringify({...p,name:'Private work in progress'});
  db.prepare('INSERT INTO cards(id,organization_id,slug,label,published_json,draft_json,version) VALUES(?,?,?,?,?,?,?)').run('existing','maison-debrah',p.slug,'Existing',original,draft,27);
  const {batch}=JSON.parse(execFileSync(process.execPath,['scripts/provision-companies.mjs'],{encoding:'utf8'}));for(let pass=0;pass<2;pass++)for(const query of batch)db.prepare(query.sql).run(...query.params);

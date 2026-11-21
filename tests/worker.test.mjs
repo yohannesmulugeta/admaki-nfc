@@ -9,7 +9,7 @@ const sqlite=new DatabaseSync(':memory:');
 sqlite.exec(readFileSync('migrations/0001_card_admin.sql','utf8'));
 sqlite.exec(readFileSync('migrations/0002_card_history.sql','utf8'));
 sqlite.exec(readFileSync('migrations/0003_card_media.sql','utf8'));
-for(const f of ['0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql'])sqlite.exec(readFileSync('migrations/'+f,'utf8'));
+for(const f of ['0004_company_branding.sql','0005_platform_templates.sql','0006_storage_policy.sql','0007_admin_mfa.sql'])sqlite.exec(readFileSync('migrations/'+f,'utf8'));
 class Statement {
   constructor(sql,values=[]){this.sql=sql;this.values=values;}
   bind(...values){return new Statement(this.sql,values);}
