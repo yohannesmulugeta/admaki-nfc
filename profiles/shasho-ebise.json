@@ -48,5 +48,6 @@
   },
   "contactPhoto": "/profiles/shasho/ebise-contact.jpg",
   "cleaningPlantImage": "/profiles/shasho/cleaning-plant.jpg",
-  "cleaningPlantImageSource": "https://shashokelbesa.com/wp-content/uploads/2025/02/1.png"
+  "cleaningPlantImageSource": "https://shashokelbesa.com/wp-content/uploads/2025/02/1.png",
+  "iosContactFile": "/shasho-kelbesa/ebise/ebise-iphone.vcf"
 }
