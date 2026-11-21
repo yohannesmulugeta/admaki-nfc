@@ -68,6 +68,9 @@ for (const p of cards) {
     assert(unfolded.includes('TEL;TYPE=CELL,VOICE:'+p.phone), 'vCard phone mismatch');
     assert(unfolded.includes('EMAIL;TYPE=WORK:'+p.email), 'vCard email mismatch');
     assert(unfolded.includes('ORG:'+p.organization), 'Company missing from saved contact');
+    assert(html.includes('href="'+p.iosContactFile+'"'), 'Fresh iPhone contact download not linked');
+    assert(readFileSync('dist'+p.iosContactFile, 'utf8') === vcf, 'Fresh and canonical contacts must match');
+    assert(unfolded.indexOf('PHOTO;ENCODING=b;TYPE=JPEG:') < unfolded.indexOf('TEL;TYPE='), 'Portrait must precede phone');
     assert(unfolded.includes('URL:'+p.website), 'Website missing from saved contact');
     assert(p.contactPhoto, 'Contact photograph is required');
     const photo = unfolded.match(/PHOTO;ENCODING=b;TYPE=JPEG:([A-Za-z0-9+/=]+)/)?.[1];
