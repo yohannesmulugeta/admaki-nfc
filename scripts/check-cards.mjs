@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
 
-const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'universal/01', 'universal/02'];
+const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'shasho-kelbesa/ebise', 'universal/01', 'universal/02'];
 const cards = readdirSync('profiles').filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`profiles/${f}`, 'utf8')));
 assert.deepEqual(cards.map(p => p.slug).sort(), approvedRoutes, 'Do not rename permanent card routes: printed QR and NFC links depend on them');
 const fingerprints = JSON.parse(readFileSync('profiles/templates/source-fingerprints.json', 'utf8'));
@@ -52,6 +52,22 @@ for (const p of cards) {
     assert.equal(p.services.length, 5, 'Keep the five verified website services');
     for (const service of p.services) assert(html.includes(`href="${service.url}"`), 'Missing service destination');
     assert(html.includes('data-card-url="'+canonical+'"'), 'ADMAKI share must use its permanent profile');
+  } else if (p.layout === 'static') {
+    // Protect the new independent permanent branded card.
+    assert.equal(p.slug, 'shasho-kelbesa/ebise', 'Unexpected static card');
+    assert(html.includes('<script src="/profiles/profile.js" defer></script>'), 'Share handler missing');
+    assert(html.includes('<h1>'+p.name+'</h1>'), 'Profile name mismatch');
+    assert(html.includes('tel:'+p.phone), 'Call destination mismatch');
+    assert(html.includes('https://wa.me/'+p.whatsapp), 'WhatsApp destination mismatch');
+    assert(html.includes('mailto:'+p.email), 'Email destination mismatch');
+    assert(html.includes('href="'+p.website+'"'), 'Website destination mismatch');
+    assert(html.includes('data-card-url="'+canonical+'"'), 'Share destination mismatch');
+    assert(html.includes('src="'+p.portrait+'"') && html.includes('src="'+p.logo+'"'), 'Required client images missing');
+    const unfolded = vcf.replace(/\r\n /g, '');
+    assert(unfolded.includes('FN:'+p.name), 'vCard name mismatch');
+    assert(unfolded.includes('TEL;TYPE=CELL,VOICE:'+p.phone), 'vCard phone mismatch');
+    assert(unfolded.includes('EMAIL;TYPE=WORK:'+p.email), 'vCard email mismatch');
+    assert(unfolded.includes('item1.URL:'+canonical), 'vCard digital-card link mismatch');
   } else {
     const unfolded = vcf.replace(/\r\n /g, '');
     assert(unfolded.includes(`NOTE:${p.companyDescription.replace(/,/g, '\\,')}`), 'Company description missing from saved-contact Note');

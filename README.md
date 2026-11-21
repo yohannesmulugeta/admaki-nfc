@@ -62,3 +62,8 @@ Universal and KKGT preserve the live content and layouts from `https://universal
 Edit `index.html` for copy; `styles.css` for presentation; `app.js` for demo profiles and WhatsApp enquiry behaviour. Contact number appears in HTML and JavaScript. Hosting target: https://nfc.admakidigital.com/.
 
 Technical NFC copy was checked against [Apple background tag reading](https://developer.apple.com/documentation/corenfc/adding-support-for-background-tag-reading), [NFC Forum technology overview](https://nfc-forum.org/learn/nfc-technology/), and [NXP NTAG21x documentation](https://www.nxp.com/products/NTAG213_215_216). No specific chip, material, speed, or universal phone compatibility is promised.
+
+
+### Shasho Kelbesa — Ebise Shasho (November 2026)
+
+Permanent URL: `https://nfc.admakidigital.com/shasho-kelbesa/ebise/`. This is a custom branded static client card recorded in `profiles/shasho-ebise.json`. Its HTML, contact file and QR files are in `public/shasho-kelbesa/ebise/`; brand assets are in `public/profiles/shasho/`. Uses the customer-supplied photograph and logo; no unconfirmed job title is displayed. Physical NFC tags should contain the permanent URL, not the current build's asset URL. The public static card has no client dashboard access yet.
