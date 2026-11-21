@@ -12,3 +12,4 @@ document.getElementById('share-card')?.addEventListener('click', async () => {
     if (status) status.textContent = `Share this link: ${url}`;
   }
 });
+

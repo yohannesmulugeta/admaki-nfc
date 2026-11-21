@@ -1,0 +1,462 @@
+{
+  "id": "maison",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "Maison Debrah Ethiopia card",
+  "reusable": false,
+  "organizationId": "maison-debrah",
+  "exampleSlug": "maison-debrah",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "eyebrow": {
+        "type": "text",
+        "label": "Short heading",
+        "group": "profile"
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "salesEmail": {
+        "type": "email",
+        "label": "Sales Email",
+        "group": "contact"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "catalogue": {
+        "type": "url",
+        "label": "Catalogue",
+        "group": "links"
+      },
+      "showroomUrl": {
+        "type": "url",
+        "label": "Showroom Url",
+        "group": "links"
+      },
+      "collectionUrl": {
+        "type": "url",
+        "label": "Collection Url",
+        "group": "links"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "social": {
+        "type": "array",
+        "label": "Social",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          },
+          "icon": {
+            "type": "text",
+            "label": "Icon",
+            "group": "profile"
+          }
+        }
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "cover": {
+        "type": "image",
+        "label": "Cover",
+        "group": "images"
+      },
+      "coverAlt": {
+        "type": "text",
+        "label": "Cover Alt",
+        "group": "images"
+      },
+      "interior": {
+        "type": "image",
+        "label": "Interior",
+        "group": "images"
+      },
+      "interiorAlt": {
+        "type": "text",
+        "label": "Interior Alt",
+        "group": "images"
+      },
+      "companyDescription": {
+        "type": "textarea",
+        "label": "Company Description",
+        "group": "profile"
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact Address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "city": {
+            "type": "text",
+            "label": "City",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "region": {
+            "type": "text",
+            "label": "Region",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postal Code",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "country": {
+            "type": "text",
+            "label": "Country",
+            "group": "profile",
+            "maxLength": 200
+          }
+        }
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "consultationUrl": {
+        "type": "url",
+        "label": "Consultation Url",
+        "group": "links"
+      },
+      "collections": {
+        "type": "array",
+        "label": "Collections",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      },
+      "featuredProducts": {
+        "type": "array",
+        "label": "Featured Products",
+        "group": "profile",
+        "readOnly": true,
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "category": {
+            "type": "text",
+            "label": "Category",
+            "group": "profile"
+          },
+          "image": {
+            "type": "image",
+            "label": "Image",
+            "group": "profile"
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      },
+      "gallery": {
+        "type": "array",
+        "label": "Gallery",
+        "group": "images",
+        "maxItems": 30,
+        "items": {
+          "image": {
+            "type": "image",
+            "label": "Image",
+            "group": "profile"
+          },
+          "title": {
+            "type": "text",
+            "label": "Title",
+            "group": "profile"
+          },
+          "alt": {
+            "type": "text",
+            "label": "Alt",
+            "group": "profile"
+          }
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".collection-links",
+      "key": "collections",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "$",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": ".gallery-grid",
+      "key": "gallery",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "image",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "img",
+          "key": "image",
+          "type": "image",
+          "altKey": "alt"
+        },
+        {
+          "selector": "figcaption",
+          "key": "title",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": ".social-links",
+      "key": "social",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "span",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:contact@maisondebrah-et.com\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": "a[href=\"mailto:sales@maisondebrah-et.com\"]",
+      "key": "salesEmail",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".cover>img",
+      "key": "cover",
+      "type": "image",
+      "altKey": "coverAlt"
+    },
+    {
+      "selector": ".brand-badge img",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".identity h1",
+      "key": "name",
+      "type": "text"
+    },
+    {
+      "selector": ".identity .eyebrow",
+      "key": "eyebrow",
+      "type": "text"
+    },
+    {
+      "selector": ".intro-copy",
+      "key": "description",
+      "type": "text"
+    },
+    {
+      "selector": ".about-company p",
+      "key": "companyDescription",
+      "type": "text"
+    },
+    {
+      "selector": ".collection-feature",
+      "key": "collectionUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".collection-feature img",
+      "key": "interior",
+      "type": "image",
+      "altKey": "interiorAlt"
+    },
+    {
+      "selector": ".gallery-directions",
+      "key": "showroomUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(1)",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(1) small",
+      "key": "phoneLabel",
+      "type": "text"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(2)",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(2) small",
+      "key": "email",
+      "type": "text"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(3)",
+      "key": "salesEmail",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(3) small",
+      "key": "salesEmail",
+      "type": "text"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(4)",
+      "key": "showroomUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".contact-section .detail-link:nth-child(4) small",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": ".explore-links .detail-link:nth-child(1)",
+      "key": "catalogue",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".explore-links .detail-link:nth-child(2)",
+      "key": "consultationUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".explore-links .detail-link:nth-child(3)",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    }
+  ]
+}

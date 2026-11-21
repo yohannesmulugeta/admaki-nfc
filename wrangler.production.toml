@@ -1,0 +1,44 @@
+# ADMAKI production. Staging uses wrangler.staging.toml.
+name = "admaki-nfc"
+main = "worker/index.js"
+compatibility_date = "2026-11-20"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+run_worker_first = ["/*", "!/", "!/assets/*", "!/fonts/*", "!/brand/*", "!/profiles/*", "!/templates/*", "!/shared/*", "!/manager/*", "!/admin/*", "!/dashboard/*", "!/favicon.svg", "!/robots.txt", "!/sitemap.xml", "!/social-preview*"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "admaki-nfc-production"
+database_id = "33d46718-57e3-4b72-8288-fb1f62d0415c"
+
+[[ratelimits]]
+name = "LOGIN_LIMITER"
+namespace_id = "2011"
+simple = { limit = 10, period = 60 }
+
+[observability]
+enabled = true
+
+[observability.traces]
+enabled = true
+
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "admaki-nfc-media-production"
+
+[[ratelimits]]
+name = "MEDIA_LIMITER"
+namespace_id = "2012"
+simple = { limit = 10, period = 60 }
+
+[triggers]
+crons = ["* * * * *"]
+
+[vars]
+ENVIRONMENT = "production"
+
+[[r2_buckets]]
+binding = "BACKUPS"
+bucket_name = "admaki-nfc-backups-production"

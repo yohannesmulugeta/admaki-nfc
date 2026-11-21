@@ -9,6 +9,15 @@ public/maison-debrah/02/
 public/maison-debrah/qr.png
 public/admaki/
 
+.wrangler/
+.dev.vars*
+public/maison-debrah/03/
+public/maison-debrah/04/
+
+public/dashboard/preview/
+
+public/templates/
+public/shared/
 # GESAGIS card and image outputs generated from approved source records
 public/gesagis/
 public/profiles/gesagis/yeabtsega.jpg

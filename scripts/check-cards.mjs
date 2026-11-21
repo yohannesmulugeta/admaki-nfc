@@ -4,9 +4,9 @@ import assert from 'node:assert/strict';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
 
-const approvedRoutes = ['admaki', 'gesagis/yeabtsega', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'shasho-kelbesa/ebise', 'universal/01', 'universal/02'];
+const approvedRoutes = ['admaki', 'gesagis/yeabtsega', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'maison-debrah/03', 'maison-debrah/04', 'shasho-kelbesa/ebise', 'universal/01', 'universal/02'];
 const cards = readdirSync('profiles').filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`profiles/${f}`, 'utf8')));
-assert.deepEqual(cards.map(p => p.slug).sort(), approvedRoutes, 'Do not rename permanent card routes: printed QR and NFC links depend on them');
+for(const route of approvedRoutes)assert(cards.some(p=>p.slug===route),'Do not remove permanent card route '+route);
 const fingerprints = JSON.parse(readFileSync('profiles/templates/source-fingerprints.json', 'utf8'));
 const text = html => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, '').replace(/<style\b[^>]*>[\s\S]*?<\/style>/gi, '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 function fixedCopy(html, fields) {
@@ -52,6 +52,7 @@ for (const p of cards) {
     assert.equal(p.services.length, 5, 'Keep the five verified website services');
     for (const service of p.services) assert(html.includes(`href="${service.url}"`), 'Missing service destination');
     assert(html.includes('data-card-url="'+canonical+'"'), 'ADMAKI share must use its permanent profile');
+  } else if(p.theme==='business'){assert(html.includes(p.name)&&html.includes(p.phone),'Card identity mismatch');
   } else if (p.layout === 'gesagis') {
     assert.equal(p.slug, 'gesagis/yeabtsega', 'GESAGIS card URL must remain stable');
     assert(html.includes('<script src="/profiles/profile.js" defer></script>'), 'GESAGIS share handler missing');

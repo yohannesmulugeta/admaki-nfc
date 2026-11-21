@@ -1,0 +1,277 @@
+{
+  "id": "universal",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "Universal Electronics card",
+  "reusable": false,
+  "organizationId": "universal",
+  "exampleSlug": "universal/01",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "portrait": {
+        "type": "image",
+        "label": "Portrait",
+        "group": "images"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "description": {
+        "type": "textarea",
+        "label": "Description",
+        "group": "profile"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "showroomUrl": {
+        "type": "url",
+        "label": "Showroom Url",
+        "group": "links"
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact Address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "city": {
+            "type": "text",
+            "label": "City",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "region": {
+            "type": "text",
+            "label": "Region",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postal Code",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "country": {
+            "type": "text",
+            "label": "Country",
+            "group": "profile",
+            "maxLength": 200
+          }
+        }
+      },
+      "social": {
+        "type": "array",
+        "label": "Social",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      },
+      "collections": {
+        "type": "array",
+        "label": "Collections",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          },
+          "image": {
+            "type": "image",
+            "label": "Image",
+            "group": "profile"
+          }
+        }
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".social-grid",
+      "key": "social",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "span:not(.external)",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": ".collections",
+      "key": "collections",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": ".collection-label span",
+          "key": "name",
+          "type": "text"
+        },
+        {
+          "selector": "img",
+          "key": "image",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:universal.elec@ethionet.et\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".profile h1",
+      "key": "name",
+      "type": "text"
+    },
+    {
+      "selector": ".profile .company",
+      "key": "organization",
+      "type": "text"
+    },
+    {
+      "selector": ".tagline",
+      "key": "description",
+      "type": "text"
+    },
+    {
+      "selector": ".portrait",
+      "key": "portrait",
+      "type": "image",
+      "altKey": "name"
+    },
+    {
+      "selector": ".brand img",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".quick-actions a:first-child>span:last-child",
+      "key": "phoneLabel",
+      "type": "text"
+    },
+    {
+      "selector": ".link-row[href^=\"mailto:\"] .row-text>span",
+      "key": "email",
+      "type": "text"
+    },
+    {
+      "selector": "a.link-row[href^=\"https://maps\"] .row-text>span",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": "a.link-row[href^=\"https://maps\"]",
+      "key": "showroomUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".website",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    }
+  ]
+}

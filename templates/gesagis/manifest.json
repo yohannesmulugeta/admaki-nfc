@@ -1,0 +1,380 @@
+{
+  "id": "gesagis",
+  "version": "2",
+  "schemaVersion": 2,
+  "name": "GESAGIS Trading PLC card",
+  "reusable": false,
+  "organizationId": "gesagis",
+  "exampleSlug": "gesagis/yeabtsega",
+  "seedMapping": {
+    "name": {
+      "from": "name"
+    },
+    "givenName": {
+      "from": "givenName"
+    },
+    "familyName": {
+      "from": "familyName"
+    },
+    "organization": {
+      "from": "organization"
+    },
+    "role": {
+      "from": "role"
+    },
+    "tagline": {
+      "from": "tagline"
+    },
+    "phone": {
+      "from": "phone"
+    },
+    "secondaryPhone": {
+      "from": "secondaryPhone"
+    },
+    "whatsapp": {
+      "from": "whatsapp"
+    },
+    "email": {
+      "from": "email"
+    },
+    "companyDescription": {
+      "from": "companyDescription"
+    },
+    "services": {
+      "from": "services"
+    },
+    "logo": {
+      "from": "logo"
+    },
+    "portrait": {
+      "from": "portrait"
+    },
+    "phoneLabel": {
+      "from": "phoneDisplay"
+    },
+    "secondaryPhoneLabel": {
+      "from": "secondaryPhoneDisplay"
+    },
+    "address": {
+      "from": "officeAddress"
+    },
+    "showroomUrl": {
+      "from": "mapSearchUrl"
+    },
+    "contactPhoto": {
+      "from": "portrait"
+    },
+    "contactAddress": {
+      "value": {
+        "street": "Piyasa, Addis Capital Building, 1st Floor",
+        "city": "Addis Ababa",
+        "region": "",
+        "postalCode": "",
+        "country": "Ethiopia"
+      }
+    },
+    "wechatUrl": {
+      "from": "wechatUrl"
+    },
+    "wechatQr": {
+      "from": "wechatQr"
+    },
+    "wechatQrPng": {
+      "from": "wechatQrPng"
+    }
+  },
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Name",
+        "group": "profile",
+        "required": true
+      },
+      "givenName": {
+        "type": "text",
+        "label": "Given name",
+        "group": "contact"
+      },
+      "familyName": {
+        "type": "text",
+        "label": "Family name",
+        "group": "contact"
+      },
+      "organization": {
+        "type": "text",
+        "label": "Organization",
+        "group": "profile"
+      },
+      "role": {
+        "type": "text",
+        "label": "Role",
+        "group": "profile"
+      },
+      "tagline": {
+        "type": "text",
+        "label": "Tagline",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "secondaryPhone": {
+        "type": "tel",
+        "label": "Secondary phone",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "companyDescription": {
+        "type": "textarea",
+        "label": "Company description",
+        "group": "profile"
+      },
+      "services": {
+        "type": "array",
+        "label": "Services",
+        "group": "profile",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Service name"
+          },
+          "description": {
+            "type": "textarea",
+            "label": "Description"
+          }
+        }
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "portrait": {
+        "type": "image",
+        "label": "Portrait",
+        "group": "images"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone label",
+        "group": "contact"
+      },
+      "secondaryPhoneLabel": {
+        "type": "text",
+        "label": "Secondary phone label",
+        "group": "contact"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "showroomUrl": {
+        "type": "url",
+        "label": "Showroom url",
+        "group": "links"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Contact photo",
+        "group": "images"
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street"
+          },
+          "city": {
+            "type": "text",
+            "label": "City"
+          },
+          "region": {
+            "type": "text",
+            "label": "Region"
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postalcode"
+          },
+          "country": {
+            "type": "text",
+            "label": "Country"
+          }
+        }
+      },
+      "wechatUrl": {
+        "type": "url",
+        "label": "wechatUrl",
+        "group": "links",
+        "readOnly": true
+      },
+      "wechatQr": {
+        "type": "image",
+        "label": "wechatQr",
+        "group": "links",
+        "readOnly": true
+      },
+      "wechatQrPng": {
+        "type": "image",
+        "label": "wechatQrPng",
+        "group": "links",
+        "readOnly": true
+      }
+    }
+  },
+  "bindings": [
+    {
+      "type": "text",
+      "selector": "#profile-name",
+      "key": "name"
+    },
+    {
+      "type": "text",
+      "selector": ".role",
+      "key": "role"
+    },
+    {
+      "type": "text",
+      "selector": ".company",
+      "key": "organization"
+    },
+    {
+      "type": "text",
+      "selector": ".hero-brand span",
+      "key": "tagline"
+    },
+    {
+      "type": "text",
+      "selector": ".about",
+      "key": "companyDescription"
+    },
+    {
+      "type": "image",
+      "selector": ".hero-logo",
+      "key": "logo",
+      "altKey": "name"
+    },
+    {
+      "type": "image",
+      "selector": ".portrait-wrap img",
+      "key": "portrait",
+      "altKey": "name"
+    },
+    {
+      "type": "attribute",
+      "selector": ".quick a:first-child,.contact-row:nth-child(1)",
+      "key": "phone",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "type": "attribute",
+      "selector": ".contact-row:nth-child(2)",
+      "key": "secondaryPhone",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "type": "attribute",
+      "selector": "a[href^=\"mailto:\"]",
+      "key": "email",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "type": "attribute",
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "type": "attribute",
+      "selector": "a[href*=\"google.com/maps\"]",
+      "key": "showroomUrl",
+      "attribute": "href"
+    },
+    {
+      "type": "text",
+      "selector": ".contact-row:nth-child(1) small",
+      "key": "phoneLabel"
+    },
+    {
+      "type": "text",
+      "selector": ".contact-row:nth-child(2) small",
+      "key": "secondaryPhoneLabel"
+    },
+    {
+      "type": "text",
+      "selector": ".contact-row:nth-child(3) small",
+      "key": "email"
+    },
+    {
+      "type": "text",
+      "selector": ".contact-row:nth-child(4) small",
+      "key": "address"
+    },
+    {
+      "type": "repeat",
+      "selector": ".service-grid",
+      "key": "services",
+      "bindings": [
+        {
+          "type": "text",
+          "selector": "b",
+          "key": "name"
+        },
+        {
+          "type": "text",
+          "selector": "p",
+          "key": "description"
+        }
+      ]
+    },
+    {
+      "type": "attribute",
+      "attribute": "href",
+      "selector": "a[href^=\"https://u.wechat.com/\"]",
+      "key": "wechatUrl"
+    },
+    {
+      "type": "image",
+      "selector": ".wechat-qr-preview img,#wechat-dialog img",
+      "key": "wechatQr",
+      "alt": "Verified WeChat contact QR code"
+    },
+    {
+      "type": "attribute",
+      "attribute": "href",
+      "selector": "#wechat-dialog a[download]",
+      "key": "wechatQrPng"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".wechat-section",
+      "key": "wechatUrl"
+    },
+    {
+      "type": "optionalHTML",
+      "selector": ".quick a[aria-label=\"Open WeChat contact\"]",
+      "key": "wechatUrl"
+    }
+  ]
+}

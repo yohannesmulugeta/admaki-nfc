@@ -1,0 +1,301 @@
+{
+  "id": "shasho",
+  "version": "1",
+  "schemaVersion": 1,
+  "name": "Shasho Kelbesa Import Export card",
+  "reusable": false,
+  "organizationId": "shasho-kelbesa",
+  "exampleSlug": "shasho-kelbesa/ebise",
+  "schema": {
+    "fields": {
+      "name": {
+        "type": "text",
+        "label": "Card display name",
+        "group": "profile",
+        "required": true
+      },
+      "organization": {
+        "type": "text",
+        "label": "Company name",
+        "group": "profile"
+      },
+      "phone": {
+        "type": "tel",
+        "label": "Phone",
+        "group": "contact"
+      },
+      "phoneLabel": {
+        "type": "text",
+        "label": "Phone Label",
+        "group": "contact"
+      },
+      "whatsapp": {
+        "type": "digits",
+        "label": "Whatsapp",
+        "group": "contact"
+      },
+      "email": {
+        "type": "email",
+        "label": "Email",
+        "group": "contact"
+      },
+      "logo": {
+        "type": "image",
+        "label": "Logo",
+        "group": "images"
+      },
+      "portrait": {
+        "type": "image",
+        "label": "Portrait",
+        "group": "images"
+      },
+      "contactPhoto": {
+        "type": "contactImage",
+        "label": "Saved contact photo",
+        "group": "images"
+      },
+      "website": {
+        "type": "url",
+        "label": "Website",
+        "group": "links"
+      },
+      "address": {
+        "type": "text",
+        "label": "Address",
+        "group": "contact"
+      },
+      "officeTitle": {
+        "type": "text",
+        "label": "Office Title",
+        "group": "contact"
+      },
+      "showroomUrl": {
+        "type": "url",
+        "label": "Showroom Url",
+        "group": "links"
+      },
+      "eyebrow": {
+        "type": "text",
+        "label": "Short heading",
+        "group": "profile"
+      },
+      "companyDescription": {
+        "type": "textarea",
+        "label": "Company Description",
+        "group": "profile"
+      },
+      "social": {
+        "type": "array",
+        "label": "Social",
+        "group": "links",
+        "maxItems": 30,
+        "items": {
+          "name": {
+            "type": "text",
+            "label": "Card display name",
+            "group": "profile",
+            "required": true
+          },
+          "url": {
+            "type": "url",
+            "label": "Url",
+            "group": "profile"
+          }
+        }
+      },
+      "contactAddress": {
+        "type": "object",
+        "label": "Contact Address",
+        "group": "contact",
+        "properties": {
+          "street": {
+            "type": "text",
+            "label": "Street",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "city": {
+            "type": "text",
+            "label": "City",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "region": {
+            "type": "text",
+            "label": "Region",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "postalCode": {
+            "type": "text",
+            "label": "Postal Code",
+            "group": "profile",
+            "maxLength": 200
+          },
+          "country": {
+            "type": "text",
+            "label": "Country",
+            "group": "profile",
+            "maxLength": 200
+          }
+        }
+      },
+      "cleaningPlantImage": {
+        "type": "image",
+        "label": "Cleaning plant photo",
+        "group": "images"
+      },
+      "plantCapacity": {
+        "type": "text",
+        "label": "Published plant capacity",
+        "group": "business"
+      },
+      "plantTitle": {
+        "type": "text",
+        "label": "Plant heading",
+        "group": "business"
+      },
+      "plantDescription": {
+        "type": "textarea",
+        "label": "Plant description",
+        "group": "business"
+      },
+      "plantLabel": {
+        "type": "text",
+        "label": "Plant category",
+        "group": "business"
+      }
+    }
+  },
+  "bindings": [
+    {
+      "selector": ".social-row",
+      "key": "social",
+      "type": "repeat",
+      "bindings": [
+        {
+          "selector": "$",
+          "key": "url",
+          "type": "attribute",
+          "attribute": "href"
+        },
+        {
+          "selector": "strong",
+          "key": "name",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "selector": "a[href^=\"tel:\"]",
+      "key": "phone",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "tel"
+    },
+    {
+      "selector": "a[href^=\"https://wa.me/\"]",
+      "key": "whatsapp",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "whatsapp"
+    },
+    {
+      "selector": "a[href=\"mailto:shashokelbessa@gmail.com\"]",
+      "key": "email",
+      "type": "attribute",
+      "attribute": "href",
+      "transform": "mail"
+    },
+    {
+      "selector": ".hero h1",
+      "key": "name",
+      "type": "text"
+    },
+    {
+      "selector": ".role-line",
+      "key": "organization",
+      "type": "text"
+    },
+    {
+      "selector": ".hero-location",
+      "key": "eyebrow",
+      "type": "text"
+    },
+    {
+      "selector": ".portrait-frame img",
+      "key": "portrait",
+      "type": "image",
+      "altKey": "name"
+    },
+    {
+      "selector": ".topbar .logo img",
+      "key": "logo",
+      "type": "image",
+      "altKey": "organization"
+    },
+    {
+      "selector": ".topbar .logo",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".quick-actions a:nth-child(4)",
+      "key": "website",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".contact-small",
+      "type": "text",
+      "compute": "contactSummary"
+    },
+    {
+      "selector": ".about>p",
+      "key": "companyDescription",
+      "type": "text"
+    },
+    {
+      "selector": "a[href*=\"google.com/maps\"]",
+      "key": "showroomUrl",
+      "type": "attribute",
+      "attribute": "href"
+    },
+    {
+      "selector": ".office-copy address",
+      "key": "address",
+      "type": "text"
+    },
+    {
+      "selector": ".office-copy h3",
+      "key": "officeTitle",
+      "type": "text"
+    },
+    {
+      "selector": ".machine-graphic",
+      "key": "cleaningPlantImage",
+      "type": "image"
+    },
+    {
+      "selector": ".machine-number strong",
+      "key": "plantCapacity",
+      "type": "text"
+    },
+    {
+      "selector": ".machine-description h3",
+      "key": "plantTitle",
+      "type": "text"
+    },
+    {
+      "selector": ".machine-description p",
+      "key": "plantDescription",
+      "type": "text"
+    },
+    {
+      "selector": ".machine-label",
+      "key": "plantLabel",
+      "type": "text"
+    }
+  ]
+}
