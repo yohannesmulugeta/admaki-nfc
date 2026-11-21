@@ -129,3 +129,52 @@ footer a { font-size: 11px; }
   .contact-row .contact-glyph { flex-basis: 40px; width: 40px; min-width: 40px; height: 40px; }
   .share-actions button { gap: 6px; font-size: 11px; }
 }
+
+
+/* GESAGIS WeChat connection — isolated from all other customer themes */
+.quick { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.quick a { min-width: 0; min-height: 75px; height: auto; padding: 11px 5px; gap: 7px; font-size: 11px; text-align: center; }
+.quick a svg { width: 22px; height: 22px; flex-shrink: 0; }
+.quick a:last-child { color: #067b46; background: #f3fbf5; border-color: #d3e8d6; }
+.quick a:last-child:hover { background: #e5f5ea; }
+.wechat-section { margin-top: 33px; }
+.wechat-section h2 { margin-bottom: 15px; }
+.wechat-panel {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 18px;
+  border: 1px solid #d7e9d8;
+  border-radius: 16px;
+  background: linear-gradient(143deg,#f8fcf8,#ecf5ea);
+  box-shadow: 0 8px 24px rgba(0,58,31,.055);
+}
+.wechat-panel-icon { flex: 0 0 43px; width: 43px; height: 43px; display: grid; place-items: center; border-radius: 12px; color: #fff; background: #07934a; }
+.wechat-panel-icon svg { width: 27px; height: 27px; }
+.wechat-panel-body { min-width: 0; flex: 1 1 auto; }
+.wechat-panel-lead { margin: 1px 0 5px; font-size: 13px; line-height: 1.4; font-weight: 750; color: #174532; }
+.wechat-panel-copy { margin: 0 0 15px; font-size: 11px; line-height: 1.7; color: #566c5d; }
+.wechat-qr-preview { width: 156px; max-width: 100%; margin: 2px auto 17px; padding: 6px; border: 1px solid #dfeadf; border-radius: 12px; background: #fff; }
+.wechat-qr-preview img { width: 100%; height: auto; display: block; }
+.wechat-actions { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 8px; }
+.wechat-actions a, .wechat-actions button { display:flex; align-items:center; justify-content:center; gap: 6px; min-width:0; min-height: 45px; padding: 8px 7px; border-radius: 10px; font-size: 11px; line-height:1.3; font-weight:750; text-align:center; }
+.wechat-action-primary { color:#fff; background:#087b42; border:1px solid #087b42; }
+.wechat-action-primary:hover { background:#056834; }
+.wechat-action-primary svg { width:17px; height:17px; flex-shrink:0; }
+.wechat-action-secondary { color:#087b42; background:#fff; border:1px solid #afcdb7; }
+.wechat-action-secondary:hover { background:#edf7ee; }
+.wechat-dialog { max-width: calc(100% - 26px); width: 370px; padding: 27px 21px 24px; }
+.wechat-dialog h2 { margin: 7px 0 11px; font-size: 22px; }
+.wechat-dialog img { display:block; width: 282px; height:auto; max-width:100%; margin: 0 auto; border-radius:12px; background:#fff; }
+.wechat-modal-caption { margin: 10px 0 17px; color:#5d7063; font-size:12px; line-height:1.5; }
+.wechat-dialog .save { margin-top: 6px; min-height: 48px; font-size:12px; }
+.wechat-modal-link { display:inline-block; margin-top: 16px; padding:7px; color:var(--green); font-weight:700; font-size:12px; text-decoration:underline; text-underline-offset:4px; }
+@media (max-width: 370px) {
+  .quick { gap: 6px; }
+  .quick a { font-size:10px; padding:10px 3px; }
+  .wechat-panel { padding: 13px; gap: 10px; }
+  .wechat-panel-icon { flex-basis:36px; width:36px; height:36px; }
+  .wechat-panel-icon svg { width:22px; height:22px; }
+  .wechat-actions a, .wechat-actions button { font-size:10px; }
+}
