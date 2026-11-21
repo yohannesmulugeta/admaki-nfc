@@ -67,6 +67,15 @@ for (const p of cards) {
     assert(unfolded.includes('FN:'+p.name), 'vCard name mismatch');
     assert(unfolded.includes('TEL;TYPE=CELL,VOICE:'+p.phone), 'vCard phone mismatch');
     assert(unfolded.includes('EMAIL;TYPE=WORK:'+p.email), 'vCard email mismatch');
+    assert(unfolded.includes('ORG:'+p.organization), 'Company missing from saved contact');
+    assert(unfolded.includes('URL:'+p.website), 'Website missing from saved contact');
+    assert(p.contactPhoto, 'Contact photograph is required');
+    const photo = unfolded.match(/PHOTO;ENCODING=b;TYPE=JPEG:([A-Za-z0-9+/=]+)/)?.[1];
+    assert(photo, 'Ebise saved contact must embed a photo');
+    const bytes = Buffer.from(photo, 'base64');
+    assert(bytes.length > 3000 && bytes[0] === 255 && bytes[1] === 216 && bytes.at(-2) === 255 && bytes.at(-1) === 217, 'Contact photo not a valid JPEG');
+    assert(bytes.equals(readFileSync('public'+p.contactPhoto)), 'Contact portrait does not match source photo');
+    assert(statSync('dist'+p.contactPhoto).size === bytes.length, 'Published contact JPEG missing');
     assert(unfolded.includes('item1.URL:'+canonical), 'vCard digital-card link mismatch');
     assert(html.includes('href="'+p.mapSearchUrl.replaceAll('&','&amp;')+'"'), 'Map link missing from card');
     assert(unfolded.includes('item2.URL:'+p.mapSearchUrl), 'Map link missing from contact');
