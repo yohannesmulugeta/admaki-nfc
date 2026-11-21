@@ -1,0 +1,63 @@
+{
+  "title": "Explore our products",
+  "description": "Explore our export and import categories through a curated photo gallery.",
+  "categories": [
+    {
+      "id": "exports",
+      "title": "Our Exports",
+      "items": [
+        {
+          "label": "Red Kidney Beans",
+          "file": "red-kidney-beans.webp"
+        },
+        {
+          "label": "Green Mung Beans",
+          "file": "green-mung-beans.webp"
+        },
+        {
+          "label": "Sesame Seeds",
+          "file": "sesame-seeds.webp"
+        },
+        {
+          "label": "Goats",
+          "file": "goats.webp"
+        },
+        {
+          "label": "Cattle",
+          "file": "cattle.webp"
+        }
+      ]
+    },
+    {
+      "id": "imports",
+      "title": "Our Imports",
+      "items": [
+        {
+          "label": "Agrochemicals",
+          "file": "agrochemicals.webp"
+        },
+        {
+          "label": "Crop Protection",
+          "file": "crop-protection.webp"
+        },
+        {
+          "label": "PVC & PET Resins",
+          "file": "pvc-pet-resins.webp"
+        },
+        {
+          "label": "BYD Ti7",
+          "file": "byd-ti7.webp"
+        },
+        {
+          "label": "Passenger Vehicle",
+          "file": "passenger-vehicle.webp"
+        },
+        {
+          "label": "Industrial Drums",
+          "file": "industrial-drums.webp"
+        }
+      ]
+    }
+  ],
+  "imageBase": "/profiles/gesagis/gallery/"
+}
