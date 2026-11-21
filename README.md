@@ -31,6 +31,7 @@ The homepage is the marketing website, with clearly labelled illustrative demons
 
 | Card | Permanent URL |
 | --- | --- |
+| GESAGIS Trading PLC — Yeabtsega Fekadu | `https://nfc.admakidigital.com/gesagis/yeabtsega/` |
 | Joni / ADMAKI Digital | `https://nfc.admakidigital.com/admaki/` |
 | Maison Debrah 01 | `https://nfc.admakidigital.com/maison-debrah/` |
 | Maison Debrah 02 | `https://nfc.admakidigital.com/maison-debrah/02/` |
@@ -80,3 +81,10 @@ Mobile-first corporate layout with a larger owner-supplied portrait, original lo
 ### Shasho company machinery photo (November 2026)
 
 The owner requested a real machinery photo in Ebise's processing section. The section now uses a photo reproduced from Shasho Kelbesa's own official gallery (`https://shashokelbesa.com/wp-content/uploads/2025/02/1.png`), stored as a local optimized JPEG under `public/profiles/shasho/cleaning-plant.jpg`. The `8–10 tonnes/hour` value remains the company's published claim. Existing QR and NFC links are unchanged. An exact copy of a separately shared inline chat photo was not accessible as a source file; the company's gallery photo is used instead.
+
+
+### GESAGIS Trading PLC — Yeabtsega Fekadu (November 2026)
+
+Permanent planned card URL: `https://nfc.admakidigital.com/gesagis/yeabtsega/`. The employee profile is in `profiles/gesagis-yeabtsega.json`, the branded template in `profiles/templates/gesagis.html`, and the separate design in `public/profiles/gesagis/card.css`. The build runs `scripts/generate-gesagis-card.mjs` to construct the public card, optimized local logo and edited suit portrait, vCard with embedded JPEG photo, and iPhone-friendly duplicate contact file. The existing shared generator creates QR files at the same permanent URL. Source image bytes are stored as versioned base64 data files in `profiles/media/` to make the build reproducible without external image hosting.
+
+Source: the owner's two-page GESAGIS Trading PLC business card and confirmed employee/contact details. WhatsApp initially uses the first supplied mobile number, +251 927 179 289, as requested; verify that the destination actually opens the intended WhatsApp account before printing NFC/QR materials. The office directions link is an address-based Google Maps search, not a verified place pin. No unverified social or website destinations were added. This is currently a **static hosted card**, not yet an editable client dashboard card. Deploy to production only after GitHub checks, browser verification and approval of the final route and image/contact behavior. Do not repurpose existing permanent links.

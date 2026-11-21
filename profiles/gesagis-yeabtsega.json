@@ -1,0 +1,41 @@
+{
+  "slug": "gesagis/yeabtsega",
+  "layout": "gesagis",
+  "name": "Yeabtsega Fekadu",
+  "givenName": "Yeabtsega",
+  "familyName": "Fekadu",
+  "role": "Import and Export Manager",
+  "organization": "GESAGIS Trading PLC",
+  "tagline": "Import · Export · Commodity Trading",
+  "phone": "+251927179289",
+  "phoneDisplay": "+251 927 179 289",
+  "secondaryPhone": "+251902988591",
+  "secondaryPhoneDisplay": "+251 902 988 591",
+  "whatsapp": "251927179289",
+  "email": "GESAGIS-TRADING-PLC@outlook.com",
+  "officeAddress": "Piyasa, Addis Capital Building, 1st Floor, Addis Ababa, Ethiopia",
+  "mapSearchUrl": "https://www.google.com/maps/search/?api=1&query=Addis%20Capital%20Building%2C%20Piyasa%2C%20Addis%20Ababa%2C%20Ethiopia",
+  "companyDescription": "GESAGIS Trading PLC is an Addis Ababa-based trading business active in agricultural commodities, industrial and agrochemical imports, and international trade and sourcing.",
+  "services": [
+    {
+      "name": "Coffee",
+      "description": "Agricultural commodity trading"
+    },
+    {
+      "name": "Oilseeds & Pulses",
+      "description": "Agricultural products and commodities"
+    },
+    {
+      "name": "Industrial & Agrochemical Imports",
+      "description": "Industrial and agrochemical products"
+    },
+    {
+      "name": "International Trade & Sourcing",
+      "description": "Import, export and sourcing services"
+    }
+  ],
+  "logo": "/profiles/gesagis/logo.webp",
+  "portrait": "/profiles/gesagis/yeabtsega.jpg",
+  "qrColor": "#005333",
+  "source": "Owner-supplied GESAGIS Trading PLC business-card PDF (2 pages, November 2026) and owner's confirmed card details and edited portrait. WhatsApp uses the first confirmed phone as requested; confirm this number is WhatsApp-enabled before final NFC printing. Address is confirmed in conversation; Maps URL is an address search, not a verified place pin. No website or social accounts verified."
+}

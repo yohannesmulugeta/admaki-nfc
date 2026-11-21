@@ -4,7 +4,7 @@ import assert from 'node:assert/strict';
 import jsQR from 'jsqr';
 import { PNG } from 'pngjs';
 
-const approvedRoutes = ['admaki', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'shasho-kelbesa/ebise', 'universal/01', 'universal/02'];
+const approvedRoutes = ['admaki', 'gesagis/yeabtsega', 'kkgt/01', 'kkgt/02', 'maison-debrah', 'maison-debrah/02', 'shasho-kelbesa/ebise', 'universal/01', 'universal/02'];
 const cards = readdirSync('profiles').filter(f => f.endsWith('.json')).map(f => JSON.parse(readFileSync(`profiles/${f}`, 'utf8')));
 assert.deepEqual(cards.map(p => p.slug).sort(), approvedRoutes, 'Do not rename permanent card routes: printed QR and NFC links depend on them');
 const fingerprints = JSON.parse(readFileSync('profiles/templates/source-fingerprints.json', 'utf8'));
@@ -52,6 +52,35 @@ for (const p of cards) {
     assert.equal(p.services.length, 5, 'Keep the five verified website services');
     for (const service of p.services) assert(html.includes(`href="${service.url}"`), 'Missing service destination');
     assert(html.includes('data-card-url="'+canonical+'"'), 'ADMAKI share must use its permanent profile');
+  } else if (p.layout === 'gesagis') {
+    assert.equal(p.slug, 'gesagis/yeabtsega', 'GESAGIS card URL must remain stable');
+    assert(html.includes('<script src="/profiles/profile.js" defer></script>'), 'GESAGIS share handler missing');
+    assert(html.includes('<h1 id="profile-name">'+p.name+'</h1>'), 'GESAGIS identity mismatch');
+    assert(html.includes('src="'+p.portrait+'"') && html.includes('src="'+p.logo+'"'), 'GESAGIS approved images missing');
+    assert(html.includes('tel:'+p.phone) && html.includes('tel:'+p.secondaryPhone), 'GESAGIS telephone buttons mismatch');
+    assert(html.includes('https://wa.me/'+p.whatsapp), 'GESAGIS WhatsApp link missing');
+    assert(html.includes('mailto:'+p.email), 'GESAGIS email link missing');
+    assert(html.includes('href="'+p.mapSearchUrl.replaceAll('&','&amp;')+'"'), 'GESAGIS office directions missing');
+    assert(html.includes('data-card-url="'+canonical+'"'), 'GESAGIS share URL mismatch');
+    assert(html.includes('href="/'+p.slug+'/contact.vcf"'), 'GESAGIS contact link missing');
+    assert(html.includes('href="/'+p.slug+'/qr.png"'), 'GESAGIS QR download missing');
+    for (const service of p.services) assert(html.includes(service.name.replaceAll('&','&amp;')), 'GESAGIS service missing');
+    const unfolded = vcf.replace(/\r\n /g, '');
+    assert(unfolded.includes('FN:'+p.name) && unfolded.includes('ORG:'+p.organization), 'GESAGIS contact identity mismatch');
+    assert(unfolded.includes('TITLE:'+p.role), 'GESAGIS job title missing from saved contact');
+    assert(unfolded.includes('TEL;TYPE=CELL,VOICE:'+p.phone), 'GESAGIS primary telephone mismatch');
+    assert(unfolded.includes('TEL;TYPE=WORK,VOICE:'+p.secondaryPhone), 'GESAGIS second telephone missing');
+    assert(unfolded.includes('EMAIL;TYPE=WORK,INTERNET:'+p.email), 'GESAGIS saved email missing');
+    assert(unfolded.includes('item1.URL:'+canonical), 'GESAGIS saved contact URL mismatch');
+    assert(unfolded.includes('item2.URL:'+p.mapSearchUrl), 'GESAGIS directions missing from contact');
+    assert(unfolded.includes('Addis Capital Building'), 'GESAGIS approved address missing');
+    const encoded = unfolded.match(/PHOTO;ENCODING=b;TYPE=JPEG:([A-Za-z0-9+/=]+)/)?.[1];
+    assert(encoded, 'GESAGIS vCard photo missing');
+    const decoded = Buffer.from(encoded, 'base64');
+    assert(decoded.length > 2000 && decoded[0] === 255 && decoded[1] === 216, 'GESAGIS portrait invalid');
+    assert(decoded.equals(readFileSync('public'+p.portrait)), 'GESAGIS saved-contact portrait differs from card');
+    assert(statSync('dist'+p.logo).size > 1000, 'GESAGIS original logo missing from build');
+    assert(readFileSync('dist/'+p.slug+'/yeabtsega-iphone.vcf','utf8') === vcf, 'GESAGIS iPhone contact mismatch');
   } else if (p.layout === 'static') {
     // Protect the new independent permanent branded card.
     assert.equal(p.slug, 'shasho-kelbesa/ebise', 'Unexpected static card');
