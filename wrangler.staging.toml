@@ -25,11 +25,9 @@ enabled = true
 [observability.traces]
 enabled = true
 
-# R2 activation is pending on this Cloudflare account. After enabling R2 and
-# creating the private bucket, uncomment the following binding before deployment.
-# [[r2_buckets]]
-# binding = "MEDIA"
-# bucket_name = "admaki-nfc-media-staging"
+[[r2_buckets]]
+binding = "MEDIA"
+bucket_name = "admaki-nfc-media-staging"
 
 [[ratelimits]]
 name = "MEDIA_LIMITER"
