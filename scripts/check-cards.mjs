@@ -64,7 +64,7 @@ for (const p of cards) {
     assert(html.includes('data-card-url="'+canonical+'"'), 'GESAGIS share URL mismatch');
     assert(html.includes('href="/'+p.slug+'/contact.vcf"'), 'GESAGIS contact link missing');
     assert(html.includes('href="/'+p.slug+'/qr.png"'), 'GESAGIS QR download missing');
-    assert(html.includes('class="contact-section"') && html.includes('class="contact-details"'), 'GESAGIS premium contact layout missing');
+    assert(html.includes('class="section contact-section"') && html.includes('class="contact-details"'), 'GESAGIS premium contact layout missing');
     assert((html.match(/class="contact-glyph"/g) || []).length === 4, 'GESAGIS contact icons missing or duplicated');
     assert(html.includes('class="map-call"') && html.includes('Get Directions'), 'GESAGIS full-width map action missing');
     assert(html.includes('class="share-actions"') && html.includes('Show QR') && html.includes('Share Card'), 'GESAGIS sharing controls missing');
