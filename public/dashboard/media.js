@@ -17,8 +17,8 @@ export async function refreshMediaLibrary(){
     const row=document.createElement('div');row.className='uploaded-image';
     if(image.status==='ready'){const preview=document.createElement('img');preview.src=image.url;preview.alt='Uploaded card image';preview.loading='lazy';row.append(preview);}
     const detail=document.createElement('p');detail.textContent=Math.ceil(image.bytes/1024)+' KB · '+(image.in_use?'Saved in this card or its history':image.status==='ready'?'Not saved in a card yet':'Upload awaiting cleanup');
-    const remove=document.createElement('button');remove.type='button';remove.textContent='Delete unused image';remove.disabled=!!image.in_use;
-    remove.onclick=async()=>{if(!confirm('Delete this unused upload? Any unsaved form using it will need a replacement.'))return;try{await api(card+'/media/'+image.id,{method:'DELETE'});await refreshMediaLibrary();callbacks.status('Unused image deleted.');}catch(error){callbacks.status(error.message);}};
+    const remove=document.createElement('button');remove.type='button';remove.textContent=image.in_use?'In use':'Delete image';remove.disabled=!!image.in_use;
+    remove.onclick=async()=>{if(pending)return;if(!await callbacks.confirm('Delete this unused image?','Any unsaved form using this upload will need a replacement.','Delete image',true))return;try{await api(card+'/media/'+image.id,{method:'DELETE'});await refreshMediaLibrary();callbacks.status('Unused image deleted.');}catch(error){callbacks.status(error.message);}};
     row.append(detail,remove);$('mediaItems').append(row);
   }
 }
@@ -38,17 +38,17 @@ export function enhanceImageField(entry,label){
   const group=document.createElement('div');group.className='image-field';group.append(entry.label);entry.label=group;
   const preview=document.createElement('img');preview.className='image-preview';preview.alt=label+' preview';preview.loading='lazy';
   const render=()=>{preview.hidden=!entry.input.value;preview.src=entry.input.value||'';};entry.input.addEventListener('input',render);render();entry.label.append(preview);
-  if(!enabled)return;
+  const clear=document.createElement('button');clear.type='button';clear.className='text-button';clear.textContent='Remove image';clear.onclick=async()=>{if(pending)return;if(!await callbacks.confirm('Remove this image?','This clears the image from your current edits. Save and publish to update your card.','Remove image',true))return;entry.input.value='';render();callbacks.changed();};group.append(clear);if(!enabled)return;
   const chooserLabel=document.createElement('label');chooserLabel.className='upload-label';chooserLabel.textContent='Choose image from your device';
   const chooser=document.createElement('input');chooser.type='file';chooser.accept='image/jpeg,image/png,image/webp';chooser.setAttribute('aria-label','Upload '+label.toLowerCase());
   const help=document.createElement('small');help.textContent='JPEG, PNG or WebP, up to 5 MB. Images are resized for faster loading.';
   chooser.onchange=async()=>{
     const file=chooser.files?.[0],card=activeCard;if(!file)return;if(pending){callbacks.status('Wait for the current upload to finish.');chooser.value='';return;}
-    pending++;chooser.disabled=true;callbacks.status('Preparing and uploading image…');
+    pending++;chooser.disabled=true;callbacks.activity?.();const progress=document.createElement('div');progress.className='image-progress';progress.setAttribute('role','status');progress.innerHTML='<progress aria-label="Preparing image"></progress><span>Preparing your image…</span>';group.append(progress);callbacks.status('Preparing and uploading image…');
     try{
-      const blob=await prepareImage(file);const data=await api(card+'/media',{method:'POST',headers:{'Content-Type':blob.type},body:blob});
+      const blob=await prepareImage(file);progress.querySelector('span').textContent='Uploading image securely…';progress.querySelector('progress').setAttribute('aria-label','Uploading image');const data=await api(card+'/media',{method:'POST',headers:{'Content-Type':blob.type},body:blob});
       if(activeCard===card&&entry.input.isConnected){entry.input.value=data.url;render();callbacks.changed();callbacks.status('Image uploaded privately. Save the draft, then publish when ready.');await refreshMediaLibrary().catch(()=>{});}
-    }catch(error){callbacks.status(error.message||'The image could not be uploaded.');}finally{pending--;chooser.disabled=false;chooser.value='';}
+    }catch(error){callbacks.status(error.message||'The image could not be uploaded.');}finally{pending--;chooser.disabled=false;chooser.value='';progress.remove();callbacks.activity?.();}
   };
   chooserLabel.append(chooser);entry.label.append(chooserLabel,help);
 }

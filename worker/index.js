@@ -64,13 +64,17 @@ function audit(env,user,org,card,action,mutation=null){
 }
 async function admin(req,env,user,path){
   if(!user.is_platform_admin)fail('Forbidden',403);
+  if(path==='/api/admin/cards'&&req.method==='GET'){
+    const data=await env.DB.prepare("SELECT c.id,c.organization_id,o.name AS organization_name,c.label,c.slug,c.version,c.updated_at,c.draft_json IS NOT NULL AS has_draft,json_extract(COALESCE(c.draft_json,c.published_json),'$.cover') AS cover FROM cards c JOIN organizations o ON o.id=c.organization_id ORDER BY c.updated_at DESC,c.slug").all();
+    return reply({cards:data.results});
+  }
   if(path==='/api/admin/organizations'){
     if(req.method==='GET'){const data=await env.DB.prepare('SELECT o.id,o.name,(SELECT COUNT(*) FROM cards c WHERE c.organization_id=o.id) AS card_count FROM organizations o ORDER BY o.name').all();return reply({organizations:data.results});}
     if(req.method==='POST'){const data=await body(req);if(typeof data.name!=='string'||data.name.trim().length<2||data.name.length>120)fail('Invalid company name');const id=crypto.randomUUID();await env.DB.batch([env.DB.prepare('INSERT INTO organizations(id,name) VALUES(?,?)').bind(id,data.name.trim()),audit(env,user,id,null,'organization.create')]);return reply({id,name:data.name.trim()},201);}
   }
   const match=path.match(/^\/api\/admin\/organizations\/([a-zA-Z0-9_-]+)(?:\/(users)(?:\/([a-zA-Z0-9_-]+)\/password)?)?$/);if(!match)fail('Not found',404);
   const org=await env.DB.prepare('SELECT id,name FROM organizations WHERE id=?').bind(match[1]).first();if(!org)fail('Not found',404);
-  if(req.method==='GET'&&!match[2]){const [cards,users]=await Promise.all([env.DB.prepare('SELECT id,label,slug,version,updated_at FROM cards WHERE organization_id=? ORDER BY slug').bind(org.id).all(),env.DB.prepare('SELECT u.id,u.username,u.display_name,m.role FROM users u JOIN memberships m ON m.user_id=u.id WHERE m.organization_id=? AND u.is_platform_admin=0').bind(org.id).all()]);return reply({organization:org,cards:cards.results,users:users.results});}
+  if(req.method==='GET'&&!match[2]){const [cards,users]=await Promise.all([env.DB.prepare("SELECT id,label,slug,version,updated_at,draft_json IS NOT NULL AS has_draft,json_extract(COALESCE(draft_json,published_json),'$.cover') AS cover FROM cards WHERE organization_id=? ORDER BY slug").bind(org.id).all(),env.DB.prepare('SELECT u.id,u.username,u.display_name,m.role FROM users u JOIN memberships m ON m.user_id=u.id WHERE m.organization_id=? AND u.is_platform_admin=0').bind(org.id).all()]);return reply({organization:org,cards:cards.results,users:users.results});}
   if(req.method==='POST'&&match[2]==='users'){
     const data=await body(req);const password=await passwordRecord(data.password,env);
     if(match[3]){
@@ -90,7 +94,7 @@ async function cards(req,env,user,url){
   if(url.pathname==='/api/cards'&&req.method==='GET'){
     const org=user.is_platform_admin?url.searchParams.get('organization'):membership.organization_id;
     if(!org)fail('Select a company');
-    const data=await env.DB.prepare('SELECT id,label,slug,version,updated_at,draft_json IS NOT NULL AS has_draft FROM cards WHERE organization_id=? ORDER BY slug').bind(org).all();return reply({organization:membership?.name||org,cards:data.results});
+    const data=await env.DB.prepare("SELECT id,label,slug,version,updated_at,draft_json IS NOT NULL AS has_draft,json_extract(COALESCE(draft_json,published_json),'$.cover') AS cover FROM cards WHERE organization_id=? ORDER BY slug").bind(org).all();const organization=membership?.name||(await env.DB.prepare('SELECT name FROM organizations WHERE id=?').bind(org).first())?.name||org;return reply({organization,cards:data.results});
   }
   const match=url.pathname.match(/^\/api\/cards\/([a-zA-Z0-9_-]+)(?:\/(draft|publish|history|rollback|media)(?:\/([a-f0-9-]{36}))?)?$/);if(!match)fail('Not found',404);
   const card=user.is_platform_admin?await env.DB.prepare('SELECT * FROM cards WHERE id=?').bind(match[1]).first():await env.DB.prepare('SELECT * FROM cards WHERE id=? AND organization_id=?').bind(match[1],membership.organization_id).first();
