@@ -122,3 +122,12 @@ for (const file of readdirSync('profiles').filter((name) => name.endsWith('.json
 </body></html>\n`);
   console.log(`Generated ${p.slug}: card, vCard and QR code.`);
 }
+
+// The editor uses the actual card template and shared renderer for draft previews.
+// It never requests published data or sends draft content to the public API.
+const previewHTML = readFileSync('public/maison-debrah/index.html','utf8')
+  .replace('<script src="/profiles/profile.js" defer></script>', '<script type="module" src="/dashboard/preview.js"></script>')
+  .replace('noindex,follow','noindex,nofollow')
+  .replace('<title>Maison Debrah | Digital Card</title>','<title>Digital card preview</title>');
+mkdirSync('public/dashboard/preview',{recursive:true});
+writeFileSync('public/dashboard/preview/index.html',previewHTML);

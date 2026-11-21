@@ -35,6 +35,16 @@ test('Phase 1 authentication and card operations',async t=>{
   await t.test('wrong password rejected',async()=>assert.equal((await request('/api/auth/login','POST',{username:'owner',password:'wrong'})).status,401));
   await t.test('admin can sign in without tenant membership',async()=>{owner=await signIn('owner');other=await signIn('other');admin=await signIn('admin');assert.equal((await request('/api/admin/organizations','GET',undefined,admin)).status,200);});
   await t.test('client cannot call admin API or read another tenant',async()=>{assert.equal((await request('/api/admin/organizations','GET',undefined,owner)).status,403);assert.equal((await request('/api/cards/card1','GET',undefined,other)).status,404);assert.equal((await request('/api/cards/card1/draft','PUT',{version:1,profile},other)).status,404);});
+  await t.test('dashboard metadata is scoped and admin card directory is protected',async()=>{
+    assert.equal((await request('/api/admin/cards')).status,401);
+    assert.equal((await request('/api/admin/cards','GET',undefined,owner)).status,403);
+    const directory=await(await request('/api/admin/cards','GET',undefined,admin)).json();
+    assert.equal(directory.cards.length,4);assert.equal(directory.cards[0].cover,profile.cover);
+    assert.equal(directory.cards[0].organization_id,'maison-debrah');assert(!('published_json' in directory.cards[0]));
+    const mine=await(await request('/api/cards?organization=elsewhere','GET',undefined,owner)).json();
+    assert.equal(mine.cards.length,4);assert.equal(mine.organization,'maison-debrah');
+    const theirs=await(await request('/api/cards?organization=maison-debrah','GET',undefined,other)).json();assert.equal(theirs.cards.length,0);
+  });
   await t.test('anonymous cannot read draft and public API has no drafts',async()=>{assert.equal((await request('/api/cards/card1')).status,401);const r=await request('/api/public/cards/maison-debrah');const data=await r.json();assert(!('draft'in data));assert.equal((await request('/api/public/cards/elsewhere')).status,404);});
   await t.test('unsafe links, protocol-relative images and slug edits rejected',async()=>{for(const change of [{website:'javascript:alert(1)'},{cover:'//evil.example/a.png'},{slug:'elsewhere'}])assert.equal((await request('/api/cards/card1/draft','PUT',{version:1,profile:{...profile,...change}},owner)).status,400);});
   await t.test('draft stays private; stale version conflicts',async()=>{const edited={...profile,name:'New published name',phone:'+251911111111',contactAddress:{...profile.contactAddress,street:'Test street'}};assert.equal((await request('/api/cards/card1/draft','PUT',{version:1,profile:edited},owner)).status,200);assert.equal((await request('/api/cards/card1/draft','PUT',{version:1,profile:edited},owner)).status,409);assert.equal((await(await request('/api/public/cards/maison-debrah')).json()).profile.name,profile.name);});
