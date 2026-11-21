@@ -23,8 +23,14 @@ test('onboarding is repeatable and never overwrites existing drafts, published c
  const {batch}=JSON.parse(execFileSync(process.execPath,['scripts/provision-companies.mjs'],{encoding:'utf8'}));for(let pass=0;pass<2;pass++)for(const query of batch)db.prepare(query.sql).run(...query.params);
  assert.equal(db.prepare('SELECT COUNT(*) n FROM organizations').get().n,5);assert.equal(db.prepare('SELECT COUNT(*) n FROM cards').get().n,10);const existing=db.prepare('SELECT * FROM cards WHERE id=?').get('existing');assert.equal(existing.published_json,original);assert.equal(existing.draft_json,draft);assert.equal(existing.version,27);assert.equal(db.prepare('SELECT COUNT(*) n FROM users').get().n,0);db.close();
 });
-test('custom public layouts receive edited identity and contact data without injecting HTML',()=>{
- for(const company of companies.filter(c=>c.id!=='maison-debrah')){const p=company.profiles[0];const raw=JSON.parse(readFileSync('profiles/'+({universal:'universal-01',kkgt:'kkgt-01',admaki:'admaki','shasho-kelbesa':'shasho-ebise'})[company.id]+'.json','utf8'));const html=raw.layout==='source-copy'?readFileSync('profiles/templates/'+raw.template+'.html','utf8').replace(/\{\{(\w+)\}\}/g,(_,key)=>raw.fields[key]||''):readFileSync('public/'+raw.slug+'/index.html','utf8');
+test('custom public layouts receive edited identity and contact data without injecting HTML',t=>{
+ const temp=mkdtempSync(join(tmpdir(),'admaki-layout-'));t.after(()=>rmSync(temp,{recursive:true,force:true}));
+ mkdirSync(join(temp,'profiles'));mkdirSync(join(temp,'public/profiles/admaki'),{recursive:true});
+ writeFileSync(join(temp,'profiles/admaki.json'),readFileSync('profiles/admaki.json'));
+ writeFileSync(join(temp,'public/profiles/admaki/contact-logo.jpg'),readFileSync('public/profiles/admaki/contact-logo.jpg'));
+ execFileSync(process.execPath,[resolve('scripts/generate-admaki-card.mjs')],{cwd:temp,encoding:'utf8'});
+
+ for(const company of companies.filter(c=>c.id!=='maison-debrah')){const p=company.profiles[0];const raw=JSON.parse(readFileSync('profiles/'+({universal:'universal-01',kkgt:'kkgt-01',admaki:'admaki','shasho-kelbesa':'shasho-ebise'})[company.id]+'.json','utf8'));const html=raw.layout==='source-copy'?readFileSync('profiles/templates/'+raw.template+'.html','utf8').replace(/\{\{(\w+)\}\}/g,(_,key)=>raw.fields[key]||''):readFileSync((raw.layout==='admaki'?temp+'/':'')+'public/'+raw.slug+'/index.html','utf8');
   const dom=new JSDOM(html,{url:'https://stage.example/'+p.slug+'/'});globalThis.document=dom.window.document;
   renderFamily({...p,name:'<script>Edited name</script>',phone:'+251911111111',email:'updated@example.test',personalEmail:'personal@example.test',salesEmail:'sales@example.test'});
   assert(document.querySelector('h1').textContent.includes(p.theme==='admaki'?'Ideas that move.':'<script>Edited name</script>'));assert(!document.querySelector('h1 script'));assert.equal(document.querySelector('a[href^="tel:"]').getAttribute('href'),'tel:+251911111111');assert.equal(document.querySelector('a[href^="mailto:"]').getAttribute('href'),'mailto:updated@example.test');
