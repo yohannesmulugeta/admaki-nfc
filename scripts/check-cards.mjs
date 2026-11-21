@@ -64,6 +64,15 @@ for (const p of cards) {
     assert(html.includes('data-card-url="'+canonical+'"'), 'GESAGIS share URL mismatch');
     assert(html.includes('href="/'+p.slug+'/contact.vcf"'), 'GESAGIS contact link missing');
     assert(html.includes('href="/'+p.slug+'/qr.png"'), 'GESAGIS QR download missing');
+    assert(html.includes('class="contact-section"') && html.includes('class="contact-details"'), 'GESAGIS premium contact layout missing');
+    assert((html.match(/class="contact-glyph"/g) || []).length === 4, 'GESAGIS contact icons missing or duplicated');
+    assert(html.includes('class="map-call"') && html.includes('Get Directions'), 'GESAGIS full-width map action missing');
+    assert(html.includes('class="share-actions"') && html.includes('Show QR') && html.includes('Share Card'), 'GESAGIS sharing controls missing');
+    assert(!html.includes('class="contact-glyph">☎'), 'Old GESAGIS icon layout reintroduced');
+    const gesagisStyles = readFileSync('dist/profiles/gesagis/card.css', 'utf8');
+    assert(gesagisStyles.includes('.contact-row .contact-glyph') && gesagisStyles.includes('flex: 0 0 44px'), 'GESAGIS contact icon alignment regression');
+    assert(gesagisStyles.includes('grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)'), 'GESAGIS share buttons not responsive');
+
     for (const service of p.services) assert(html.includes(service.name.replaceAll('&','&amp;')), 'GESAGIS service missing');
     const unfolded = vcf.replace(/\r\n /g, '');
     assert(unfolded.includes('FN:'+p.name) && unfolded.includes('ORG:'+p.organization), 'GESAGIS contact identity mismatch');
