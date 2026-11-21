@@ -37,6 +37,14 @@ export async function confirmAction(title,description,action='Continue',danger=f
 }
 export function cardMarkup(card,org){
   const url='/'+card.slug+'/',edit='/dashboard/?organization='+encodeURIComponent(org||card.organization_id)+'&card='+encodeURIComponent(card.id);
-  const image=card.cover&&(/^(\/(?!\/)|https:\/\/)/).test(card.cover)?card.cover:'/profiles/maison-debrah/showroom.webp';
+  const image=card.cover&&(/^(\/(?!\/)|https:\/\/)/).test(card.cover)?card.cover:'/manager/card-placeholder.svg';
   return `<article class="digital-card"><a class="card-cover" href="${escapeHTML(edit)}" tabindex="-1"><img src="${escapeHTML(image)}" alt="" loading="lazy">${badge(card.has_draft)}</a><div class="digital-card-body"><p class="eyebrow">${escapeHTML(card.organization_name||'DIGITAL CARD')}</p><h3>${escapeHTML(card.label)}</h3><a class="card-url" href="${escapeHTML(url)}" target="_blank" rel="noopener">/${escapeHTML(card.slug)}/ ${icon('arrow')}</a><p class="updated">Updated ${escapeHTML(formatDate(card.updated_at))}</p><a class="button secondary full" href="${escapeHTML(edit)}">${icon('edit')} Edit card</a></div></article>`;
+}
+export function applyCompanyBrand(brand={}){
+  const name=brand.name||'Your company',logo=brand.logo||'',accent=/^#[0-9a-f]{6}$/i.test(brand.accent||'')?brand.accent:'#2563eb';
+  document.body.style.setProperty('--accent',accent);document.body.style.setProperty('--accent-soft',accent+'12');
+  const image=$('clientLogo');if(image){image.src=/^(\/(?!\/)|https:\/\/)/.test(logo)?logo:'/brand/admaki-logo.svg';image.alt=logo?name:'ADMAKI Digital';image.onerror=()=>{image.onerror=null;image.src='/brand/admaki-logo.svg';};}
+  if($('clientBrandName')){$('clientBrandName').textContent=name;$('clientBrandName').hidden=false;}
+  if($('companyBreadcrumb'))$('companyBreadcrumb').textContent=name;
+  if($('companyEyebrow'))$('companyEyebrow').textContent=name.toUpperCase();
 }

@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
-    "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && node scripts/generate-admaki-card.mjs && vite build",
+    "build": "node scripts/generate-profiles.mjs && node scripts/generate-connect-cards.mjs && node scripts/generate-admaki-card.mjs && node scripts/generate-business-cards.mjs && node scripts/generate-workspaces.mjs && vite build",
     "preview": "vite preview --host 0.0.0.0",
-    "check": "node --check public/manager/ui.js && node --check public/profiles/render-profile.js && node --check public/dashboard/preview.js && node --check worker/index.js && node --check worker/media.js && node --check public/dashboard/media.js && node --check public/admin/admin.js && node --check public/dashboard/dashboard.js && npm test && node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs",
+    "check": "node --check public/profiles/render-families.js && node --check public/manager/ui.js && node --check public/profiles/render-profile.js && node --check public/dashboard/preview.js && node --check worker/index.js && node --check worker/media.js && node --check public/dashboard/media.js && node --check public/admin/admin.js && node --check public/dashboard/dashboard.js && npm test && node --check app.js && node --check public/profiles/profile.js && node --check public/profiles/connect-share.js && npm run build && node scripts/check-build.mjs && node scripts/check-cards.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "devDependencies": {

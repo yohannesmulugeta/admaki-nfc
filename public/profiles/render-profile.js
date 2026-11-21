@@ -1,6 +1,8 @@
 // Shared by the public card and the authenticated editor's local preview.
 // Insert user content through text nodes and validated URLs only.
+import {renderFamily} from './render-families.js';
 export function renderProfile(p){
+    if(renderFamily(p))return;
     const text=(selector,value)=>{const el=document.querySelector(selector);if(el&&typeof value==='string')el.textContent=value};
     const link=(selector,value)=>{const el=document.querySelector(selector);if(el&&typeof value==='string'&&['https://','mailto:','tel:'].some(prefix=>value.startsWith(prefix)))el.href=value};
     const image=(selector,value)=>{const el=document.querySelector(selector);if(!el||typeof value!=='string')return;if(!value){el.hidden=true;el.removeAttribute('src');return;}if(value.startsWith('/')&&!value.startsWith('//')||value.startsWith('https://')){el.hidden=false;el.src=value;}};

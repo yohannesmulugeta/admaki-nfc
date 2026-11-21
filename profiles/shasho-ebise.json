@@ -1,0 +1,49 @@
+{
+  "slug": "shasho-kelbesa/ebise",
+  "layout": "static",
+  "name": "Ebise Shasho",
+  "organization": "Shasho Kelbesa Import Export",
+  "phone": "+251935146864",
+  "whatsapp": "251935146864",
+  "email": "shashokelbessa@gmail.com",
+  "website": "https://shashokelbesa.com/",
+  "portrait": "/profiles/shasho/ebise-portrait.webp",
+  "logo": "/profiles/shasho/shasho-logo.webp",
+  "qrColor": "#087ac0",
+  "source": "Owner-supplied portrait and logo. Business address, published plant capacity, products, services and social links from shashokelbesa.com home, about, import, export and contact pages; checked 2026-11-21. Personal role omitted.",
+  "officeAddress": "Beal Building, Offices 107–112, Dej. Beyene Merid Street, Kera, Addis Ababa, Ethiopia",
+  "mapSearchUrl": "https://www.google.com/maps/search/?api=1&query=Beal%20Building%2C%20Dej.%20Beyene%20Merid%20Street%2C%20Kera%2C%20Addis%20Ababa%2C%20Ethiopia",
+  "locationVerification": "Official website address; link is a Google Maps search, not an exact confirmed pin",
+  "social": [
+    {
+      "name": "Facebook",
+      "url": "https://web.facebook.com/profile.php?id=61571482156351"
+    },
+    {
+      "name": "Instagram",
+      "url": "https://www.instagram.com/shasho_kelbesa_import_export"
+    },
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/company/shasho-kelbesa-import-export/posts/?feedView=all"
+    }
+  ],
+  "businessHighlights": {
+    "cleaningPlant": "8–10 tonnes per hour beans/pulses cleaning plant (published capacity)",
+    "exports": [
+      "Niger seeds",
+      "Sesame seeds",
+      "Other oilseeds",
+      "Cereals"
+    ],
+    "imports": [
+      "Excavators",
+      "Wheel loaders",
+      "Trucks",
+      "Automobiles",
+      "Tyres",
+      "Paper products"
+    ],
+    "sourcing": "Agricultural sourcing and contract farming"
+  }
+}
