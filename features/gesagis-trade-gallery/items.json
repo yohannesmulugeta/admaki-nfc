@@ -8,23 +8,23 @@
       "items": [
         {
           "label": "Red Kidney Beans",
-          "file": "red-kidney-beans.webp"
+          "file": "red-kidney-beans.jpg"
         },
         {
           "label": "Green Mung Beans",
-          "file": "green-mung-beans.webp"
+          "file": "green-mung-beans.jpg"
         },
         {
           "label": "Sesame Seeds",
-          "file": "sesame-seeds.webp"
+          "file": "sesame-seeds.jpg"
         },
         {
           "label": "Goats",
-          "file": "goats.webp"
+          "file": "goats.jpg"
         },
         {
           "label": "Cattle",
-          "file": "cattle.webp"
+          "file": "cattle.jpg"
         }
       ]
     },
@@ -34,27 +34,27 @@
       "items": [
         {
           "label": "Agrochemicals",
-          "file": "agrochemicals.webp"
+          "file": "agrochemicals.jpg"
         },
         {
           "label": "Crop Protection",
-          "file": "crop-protection.webp"
+          "file": "crop-protection.jpg"
         },
         {
           "label": "PVC & PET Resins",
-          "file": "pvc-pet-resins.webp"
+          "file": "pvc-pet-resins.jpg"
         },
         {
           "label": "BYD Ti7",
-          "file": "byd-ti7.webp"
+          "file": "byd-ti7.jpg"
         },
         {
           "label": "Passenger Vehicle",
-          "file": "passenger-vehicle.webp"
+          "file": "passenger-vehicle.jpg"
         },
         {
           "label": "Industrial Drums",
-          "file": "industrial-drums.webp"
+          "file": "industrial-drums.jpg"
         }
       ]
     }
